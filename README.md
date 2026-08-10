@@ -12,6 +12,35 @@ This repository is an amalgamation of the various individual repositories and su
 
 ---
 
+## Repository Structure
+
+This is a **monorepo** which means everything relating to Constellation is all kept within this one repository.
+From a DevOps perspective, this tends to add extra unnecessary complexity (though in some cases it also simplifies things!).
+That said, having everything in one repository makes management a lot easier, and also makes for a prettier repository 😛
+
+```
+constellation
+├── ansible/          # Ansible Playbooks for automating tasks
+│   ├── files/
+│   ├── templates/
+│   └── inventory.yml
+├── assets            # Source and rastor files for Constellation's branding
+│   └── logo/
+├── docs/             # MkDocs project files for Constellation's website
+│   ├── src/
+│   ├── includes/
+│   ├── overrides/
+│   └── mkdocs.yml
+├── kubernetes        # Kubernetes manifests managed by ArgoCD
+│   ├── apps/
+│   └── argocd/
+└── proxmox           # Resources for Proxmox LXCs and VMs
+    ├── scripts/
+    └── stacks/
+```
+
+---
+
 ## Acknowledgements
 
 Constellation is the result of years of learning, researching and tearing the whole thing down to start again.
