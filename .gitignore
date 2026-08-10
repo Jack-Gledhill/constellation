@@ -3,3 +3,4 @@
 .env
 inventory.yml
 .lock
+.venv/
