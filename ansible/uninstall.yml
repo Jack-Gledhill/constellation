@@ -1,0 +1,34 @@
+---
+- name: Uninstall k3s on agent nodes
+  hosts: agents
+  any_errors_fatal: true
+
+  tasks:
+    - name: Check if the agent uninstall script is present
+      ansible.builtin.stat:
+        path: /usr/local/bin/k3s-agent-uninstall.sh
+      register: uninstall_script
+
+    - name: Run agent uninstall script if it exists
+      ansible.builtin.command:
+        cmd: /usr/local/bin/k3s-agent-uninstall.sh
+      register: res
+      changed_when: res.rc == 0
+      when: uninstall_script.stat.exists
+
+- name: Uninstall k3s on Control Plane nodes
+  hosts: control_plane
+  any_errors_fatal: true
+
+  tasks:
+    - name: Check if the control plane uninstall script is present
+      ansible.builtin.stat:
+        path: /usr/local/bin/k3s-uninstall.sh
+      register: uninstall_script
+
+    - name: Run Control Plane uninstall script if it exists
+      ansible.builtin.command:
+        cmd: /usr/local/bin/k3s-uninstall.sh
+      register: res
+      changed_when: res.rc == 0
+      when: uninstall_script.stat.exists

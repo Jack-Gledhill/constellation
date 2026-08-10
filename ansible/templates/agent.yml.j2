@@ -1,0 +1,5 @@
+node-name: {{ inventory_hostname_short }}
+node-label: {{ labels | list }}
+node-taint: {{ taints | list }}
+server: https://{{ cluster.join_ip }}:6443
+token: {{ cluster.token }}

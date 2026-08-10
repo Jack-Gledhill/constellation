@@ -1,0 +1,56 @@
+all:
+  vars:
+    ansible_user: admin
+    ansible_ssh_private_key_file: ~/.ssh/id_rsa
+    ansible_become: true
+
+    labels: []
+    taints: []
+
+    cluster:
+      join_ip: "{{ hostvars[groups['control_plane'][0]]['ansible_host'] }}"
+      token: Password123
+
+    bootstrap:
+      repo: https://github.com/Jack-Gledhill/hydra-bootstrap
+      path: bootstrap
+      version: bootstrap # Can be HEAD, a branch name or a tag name
+
+  hosts:
+    host1:
+      ansible_host: 1.1.1.1
+
+    host2:
+      ansible_host: 2.2.2.2
+
+control_plane:
+  vars:
+    cluster:
+      disable:
+        - traefik
+        - local-storage
+        - servicelb
+      disable_cloud_controller: true
+      network:
+        domain: cluster.local
+        tls_san: [ ]
+        flannel_backend: vxlan
+        service_cidr: 10.43.0.0/16
+        pod_cidr: 10.42.0.0/16
+        cluster_dns: 10.43.0.10
+      etcd:
+        snapshots:
+          disabled: false
+          retention: 10
+          directory: /snapshots/etcd
+        s3:
+          enabled: false
+          access_key: ""
+          secret_key: ""
+
+  hosts:
+    host1:
+
+agents:
+  hosts:
+    host2:

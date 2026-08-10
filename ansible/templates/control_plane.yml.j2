@@ -1,0 +1,17 @@
+node-name: {{ inventory_hostname_short }}
+node-label: {{ labels | list }}
+node-taint: {{ taints | list }}
+
+server: https://{{ cluster.join_ip }}:6443
+token: {{ cluster.token }}
+
+cluster-domain: {{ cluster.network.domain }}
+disable: {{ cluster.disable | list }}
+disable-cloud-controller: {{ cluster.disable_cloud_controller }}
+flannel-backend: {{ cluster.network.flannel_backend }}
+secrets-encryption: true
+write-kubeconfig-mode: 0644
+
+cluster-cidr: {{ cluster.network.pod_cidr }}
+service-cidr: {{ cluster.network.service_cidr }}
+cluster-dns: {{ cluster.network.cluster_dns }}

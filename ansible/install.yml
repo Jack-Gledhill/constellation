@@ -1,0 +1,54 @@
+---
+- name: Download k3s installation script
+  hosts: all
+  any_errors_fatal: true
+
+  tasks:
+    - name: Download k3s installation script
+      ansible.builtin.get_url:
+        url: https://get.k3s.io
+        dest: /tmp/k3s.sh
+        mode: "0700" # U:RWX, G:N, O:N
+
+    - name: Export kubeconfig on login
+      ansible.builtin.lineinfile:
+        line: export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+        path: /etc/profile
+        state: present
+
+- name: Run k3s as server on Control Plane nodes
+  hosts: control_plane
+  any_errors_fatal: true
+
+  tasks:
+    - name: Check if k3s is installed
+      ansible.builtin.command: which k3s
+      changed_when: false
+      failed_when: false
+      register: installed
+
+    - name: Run the k3s installation script as Control Plane
+      ansible.builtin.command:
+        cmd: bash /tmp/k3s.sh server
+      register: res
+      changed_when: res.rc not in [0, 1]
+      failed_when: res.rc not in [0, 1]
+      when: installed.rc != 0
+
+- name: Run k3s as agent on agent nodes
+  hosts: agents
+  any_errors_fatal: true
+
+  tasks:
+    - name: Check if k3s is installed
+      ansible.builtin.command: which k3s
+      changed_when: false
+      failed_when: false
+      register: installed
+
+    - name: Run the k3s installation script as Agent
+      ansible.builtin.command:
+        cmd: bash /tmp/k3s.sh agent
+      register: res
+      changed_when: res.rc == 0
+      when: installed.rc != 0
