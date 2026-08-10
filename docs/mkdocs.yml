@@ -1,0 +1,214 @@
+# yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
+site_name: Constellation
+site_url: https://starsystem.dev
+site_author: Jack Gledhill
+site_description: >-
+  Documentation and blog for my home production environment.
+docs_dir: src
+
+# Repository information, shown in right side of navbar
+repo_url: https://github.com/Jack-Gledhill/constellation
+repo_name: Jack-Gledhill/constellation
+edit_uri: edit/main/docs/src
+
+# Site navigation, contains all the pages users can view
+nav: []
+
+# Plugins and extensions used
+plugins:
+  - privacy
+  - search
+  - tags
+  - meta
+  # --- Git metadata
+  - git-authors
+  - git-committers:
+      repository: Jack-Gledhill/constellation
+      branch: main
+  - git-revision-date-localized:
+      type: date
+      enable_creation_date: true
+      fallback_to_build_date: true
+  # --- Blog
+  - blog:
+      blog_dir: blog
+      blog_toc: true
+      archive_toc: true
+      authors_profiles: true
+  # --- RSS feed for blog posts
+  - rss:
+      comments_path: "#__comments"
+      match_path: blog/posts/.*
+      date_from_meta:
+        as_creation: date
+      categories:
+        - categories
+        - tags
+  # --- Image zoom
+  - glightbox:
+      background: none
+      shadow: false
+  # --- Large cards for SEO
+  - social:
+      cards_layout_options:
+        logo: overrides/.icons/mono.svg
+        background_color: "#1f6bcb"
+
+# Extensions for markdown on pages
+markdown_extensions:
+  - admonition
+  - abbr
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.blocks.caption
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.tilde
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+      options:
+        custom_icons:
+          - overrides/.icons
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.snippets:
+      auto_append:
+        - includes/definitions.md
+        - includes/links.md
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+theme:
+  name: material
+  favicon: assets/favicon.png
+  custom_dir: overrides
+  language: en
+
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - toc.follow
+    - content.action.edit
+    - content.action.view
+    - content.tooltips
+    - search.suggest
+    - search.highlight
+    - search.share
+    - tags
+    - announce.dismiss
+
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+      primary: custom
+      accent: custom
+
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+      primary: custom
+      accent: custom
+
+  # Updating the icons used for certain actions
+  icon:
+    edit: material/pencil
+    view: material/eye
+    repo: fontawesome/brands/github
+    annotation: material/information
+    logo: constellation/mono
+
+extra:
+  homepage: https://starsystem.dev
+
+  # Site analytics & page feedback
+  analytics:
+    provider: google
+    property: G-ZGE895CJE3
+    feedback:
+      title: Was this page helpful?
+      ratings:
+        - icon: material/thumb-up-outline
+          name: This page was helpful
+          data: 1
+          note: >-
+            Thanks for your feedback!
+        - icon: material/thumb-down-outline
+          name: This page could be improved
+          data: 0
+          note: >-
+            Thanks for your feedback! Help us improve this page by
+            submitting an issue on the <a href="https://github.com/Jack-Gledhill/constellation/issues/new" target="_blank" rel="noopener">GitHub repo</a>
+
+  # Social media links on footer
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Jack-Gledhill/constellation
+    - icon: fontawesome/solid/rss
+      link: /feed_rss_created.xml
+
+  # Cookie consent popup
+  consent:
+    title: Cookies
+    actions:
+      - accept
+      - reject
+      - manage
+    description: >-
+      This website uses cookies to anonymously track visits and interactions to this site, as well as feedback users give on each of the pages here so we know which pages need improvement. <b>This site does not track personal or identifiable information, ever.</b>
+
+# Copyright notice, shown in footer
+copyright: >
+  Copyright &copy; 2026 Jack Gledhill <br />
+  <a href="#__consent"><u>Manage cookies</u></a>
+
+extra_javascript:
+  - assets/js/mathjax.js
+  - assets/js/tablesort.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+extra_css:
+  - assets/css/theme.css
+
+watch:
+  - includes
+  - overrides
