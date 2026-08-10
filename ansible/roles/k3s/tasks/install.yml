@@ -1,0 +1,11 @@
+- name: Download k3s installation script
+  ansible.builtin.get_url:
+    url: https://get.k3s.io
+    dest: /tmp/k3s.sh
+    mode: "0700" # U:RWX, G:N, O:N
+
+- name: Export kubeconfig on login
+  ansible.builtin.lineinfile:
+    line: export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+    path: /etc/profile
+    state: present

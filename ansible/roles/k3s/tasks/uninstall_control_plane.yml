@@ -1,0 +1,11 @@
+- name: Check if the control plane uninstall script is present
+  ansible.builtin.stat:
+    path: /usr/local/bin/k3s-uninstall.sh
+  register: uninstall_script
+
+- name: Run Control Plane uninstall script if it exists
+  ansible.builtin.command:
+    cmd: /usr/local/bin/k3s-uninstall.sh
+  register: res
+  changed_when: res.rc == 0
+  when: uninstall_script.stat.exists

@@ -1,0 +1,13 @@
+- name: Build agent config
+  ansible.builtin.template:
+    src: templates/agent.yml.j2
+    dest: /etc/rancher/k3s/config.yaml
+    force: true
+    owner: root
+    group: root
+    mode: "0644" # U:RW, G:R, O:R
+  register: config
+
+- name: Reboot when changes are made
+  ansible.builtin.reboot:
+  when: config.changed

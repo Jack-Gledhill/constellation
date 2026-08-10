@@ -1,0 +1,21 @@
+- name: Fetch the boot options file
+  ansible.builtin.slurp:
+    src: /boot/firmware/cmdline.txt
+  register: cmdline
+
+- set_fact:
+    cmdline_content: "{{ cmdline['content'] | b64decode }}"
+    cgroup_string: "cgroup_memory=1 cgroup_enable=memory"
+
+- name: Add cgroup config to boot options
+  ansible.builtin.lineinfile:
+    search_string: "{{ cmdline_content }}"
+    line: "{{ cmdline_content }} {{ cgroup_string }}"
+    path: /boot/firmware/cmdline.txt
+    state: present
+  when: content is not regex(cgroup_string) # Needed to prevent the cgroup settings being added multiple times
+  register: cgroup
+
+- name: Reboot when changes are made
+  ansible.builtin.reboot:
+  when: cgroup.changed

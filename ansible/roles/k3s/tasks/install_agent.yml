@@ -1,0 +1,12 @@
+- name: Check if k3s is installed
+  ansible.builtin.command: which k3s
+  changed_when: false
+  failed_when: false
+  register: installed
+
+- name: Run the k3s installation script as Agent
+  ansible.builtin.command:
+    cmd: bash /tmp/k3s.sh agent
+  register: res
+  changed_when: res.rc == 0
+  when: installed.rc != 0

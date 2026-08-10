@@ -1,0 +1,7 @@
+- name: Creates k3s directory if needed
+  ansible.builtin.file:
+    path: /etc/rancher/k3s
+    state: directory
+    owner: root
+    group: root
+    mode: "0755" # U:RW, G:R, O:R
