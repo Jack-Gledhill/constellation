@@ -1,0 +1,24 @@
+proxmox: SAGITTARIUS {
+  style: {
+    stroke-dash: 3
+  }
+
+  constellationad: {
+
+  }
+}
+
+kubernetes: KUBERNETES {
+  style: {
+    stroke-dash: 3
+  }
+
+  authelia
+}
+
+user: USER {
+  shape: person
+}
+
+user -> kubernetes.authelia: OIDC
+kubernetes.authelia -> proxmox.constellationad: LDAP

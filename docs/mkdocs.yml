@@ -12,7 +12,21 @@ repo_name: Jack-Gledhill/constellation
 edit_uri: edit/main/docs/src
 
 # Site navigation, contains all the pages users can view
-nav: []
+nav:
+  - Home: index.md
+  - Blog: blog/index.md
+  - Storage:
+      - Databases: storage/databases.md
+      - Time Machine: storage/time-machine.md
+  - Network:
+      - Firewall: network/firewall.md
+      - Reverse Proxy: network/reverse-proxy.md
+      - VPN: network/vpn.md
+      - Single Sign-On:
+          - Single Sign-On: network/sso/index.md
+          - Active Directory: network/sso/ad.md
+          - LDAP: network/sso/ldap.md
+          - OIDC: network/sso/oidc.md
 
 # Plugins and extensions used
 plugins:
@@ -51,7 +65,7 @@ plugins:
   # --- Large cards for SEO
   - social:
       cards_layout_options:
-        logo: overrides/.icons/mono.svg
+        logo: overrides/.icons/constellation/mono.svg
         background_color: "#1f6bcb"
 
 # Extensions for markdown on pages
