@@ -1,11 +1,10 @@
-proxmox: SAGITTARIUS {
+proxmox: PROXMOX {
   style: {
     stroke-dash: 3
   }
 
-  constellationad: {
-
-  }
+  constellationad: ACTIVE DIRECTORY
+  samba: SAMBA
 }
 
 kubernetes: KUBERNETES {
@@ -22,3 +21,5 @@ user: USER {
 
 user -> kubernetes.authelia: OIDC
 kubernetes.authelia -> proxmox.constellationad: LDAP
+user -> proxmox.samba: Kerberos
+proxmox.samba -> proxmox.constellationad: Kerberos

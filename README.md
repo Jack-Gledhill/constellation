@@ -48,3 +48,4 @@ The past works of many people have inspired Constellation as it is today.
 I can't list everyone whose work has contributed to this project, but here are those that have made the most important contributions:
 
 - [mortennordbye](https://github.com/mortennordbye) whose own [homelab monorepo](https://github.com/mortennordbye/homelab) inspired this one
+- Soumya Dahal for their [guide on setting up samba as a member server](https://soumyadahal.com.np/file-server-AD-lab/)
