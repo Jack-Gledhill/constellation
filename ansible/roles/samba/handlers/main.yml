@@ -1,0 +1,28 @@
+---
+- name: Restart chronyd
+  ansible.builtin.systemd_service:
+    name: chronyd
+    state: restarted
+
+- name: Restart smbd
+  ansible.builtin.systemd_service:
+    name: smbd
+    state: restarted
+
+- name: Restart winbind
+  ansible.builtin.systemd_service:
+    name: winbind
+    state: restarted
+
+- name: Restart nmbd
+  ansible.builtin.systemd_service:
+    name: nmbd
+    state: restarted
+
+- name: Restart nsswitch
+  ansible.builtin.systemd_service:
+    name:
+      - smbd
+      - nmbd
+      - winbind
+    state: restarted

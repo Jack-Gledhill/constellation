@@ -1,0 +1,22 @@
+---
+samba_domain: AD.CORP.COM
+samba_workgroup: CORP
+
+samba_ntp_server: dc1.ad.corp.com
+
+samba_admin_user: Administrator
+samba_admin_password: Password123! # Use Ansible Vault in production
+samba_organizational_unit: File Servers
+
+samba_homedir_template: /home/%U
+samba_shell_template: /sbin/nologin
+samba_shares:
+  - name: homes
+    comment: User storage
+    path: /home/%U
+    valid_users: "@Domain Users"
+    browseable: no
+    read_only: no
+    guest_ok: no
+    create_mask: "0600"
+    directory_mask: "0700"

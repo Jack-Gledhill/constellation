@@ -1,0 +1,12 @@
+---
+labels: []
+taints: []
+
+cluster:
+  join_ip: "{{ hostvars[groups['control_plane'][0]]['ansible_host'] }}"
+  token: # TODO: replace with Ansible Vault
+
+bootstrap:
+  repo: https://Jack-Gledhill:@github.com/Jack-Gledhill/hydra
+  path: bootstrap
+  version: main # Can be HEAD, a branch name or a tag name

@@ -1,0 +1,4 @@
+---
+ansible_user: admin
+ansible_host: echo.hydra.starsystem.dev
+ansible_port: 22

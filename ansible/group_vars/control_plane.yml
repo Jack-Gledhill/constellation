@@ -1,0 +1,24 @@
+---
+cluster:
+  disable:
+    - traefik # Managed ourselves via ArgoCD
+    - local-storage # Managed thru ArgoCD
+    - servicelb # Replaced with MetalLB
+  disable_cloud_controller: true
+  network:
+    domain: hydra.starsystem.dev
+    tls_san: []
+    flannel_backend: wireguard-native
+    service_cidr: 172.16.0.0/16
+    pod_cidr: 172.17.0.0/16
+    cluster_dns: 172.16.0.2
+  etcd:
+    snapshots:
+      disabled: false
+      retention: 10
+      directory: /snapshots/etcd
+    s3:
+      enabled: false
+      access_key: ""
+      secret_key: ""
+      bucket: ""

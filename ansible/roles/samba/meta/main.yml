@@ -1,0 +1,10 @@
+---
+galaxy_info:
+  author: Jack-Gledhill
+  description: Installs samba onto a Debian system and joins it to an Active Directory forest
+  license: GPL-3.0
+  min_ansible_version: 11.2.0
+  galaxy_tags:
+    - samba
+    - active-directory
+    - smb
