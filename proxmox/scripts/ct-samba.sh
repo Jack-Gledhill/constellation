@@ -83,7 +83,6 @@ install_apt_packages() {
         attr \
         dnsutils \
         samba \
-        samba-common-tools \
         winbind \
         libpam-winbind \
         libnss-winbind \
@@ -141,8 +140,8 @@ configure_samba() {
     cat > /etc/samba/smb.conf <<EOF
 [global]
     # --- Server discovery
-    server string = ${HOSTNAME^^}/STARSYSTEM
-    mdns name = ${HOSTNAME^^}/STARSYSTEM
+    server string = ${HOSTNAME^^}
+    mdns name = netbios
     disable netbios = yes
     smb ports = 445
 
@@ -238,3 +237,4 @@ configure_pam
 configure_nsswitch
 join_domain
 apply_changes
+mkdir -p /etc/samba/smb.conf.d
