@@ -17,7 +17,7 @@ nav:
   - Blog: blog/index.md
   - Storage:
       - Databases: storage/databases.md
-      - Time Machine: storage/time-machine.md
+      - SMB: storage/smb.md
   - Network:
       - Firewall: network/firewall.md
       - Reverse Proxy: network/reverse-proxy.md
