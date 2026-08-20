@@ -29,6 +29,10 @@
          <lastmod>2026-08-20</lastmod>
     </url>
     <url>
+         <loc>https://starsystem.dev/network/sso/forward-auth/</loc>
+         <lastmod>2026-08-20</lastmod>
+    </url>
+    <url>
          <loc>https://starsystem.dev/network/sso/ldap/</loc>
          <lastmod>2026-08-20</lastmod>
     </url>
@@ -41,7 +45,7 @@
          <lastmod>2026-08-20</lastmod>
     </url>
     <url>
-         <loc>https://starsystem.dev/storage/time-machine/</loc>
+         <loc>https://starsystem.dev/storage/smb/</loc>
          <lastmod>2026-08-20</lastmod>
     </url>
 </urlset>
