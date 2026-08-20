@@ -17,7 +17,8 @@ This script installs the chrony NTP client onto a Debian machine and configures 
 synchronise with a specified NTP server at boot.
 
 OPTIONS:
-   -h, --help  Shows this message and exits.
+   -a, --address ntp.debian.org  Configures the NTP server to sync with, defaults to Debian's NTP server.
+   -h, --help                    Shows this message and exits.
 EOF
 }
 
@@ -26,6 +27,12 @@ ADDRESS="ntp.debian.org"
 PARAMS=""
 while (( "$#" )); do
     case "$1" in
+        -a|--address)
+            if [ -n "$2" ] && [ "${2:0:1}" != "-" ]; then
+                ADDRESS=$2
+                shift 2
+            fi
+            ;;
         -h|--help)
             usage
             exit 1
