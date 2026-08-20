@@ -2,46 +2,46 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://starsystem.dev/</loc>
-         <lastmod>2026-08-19</lastmod>
+         <lastmod>2026-08-20</lastmod>
     </url>
     <url>
          <loc>https://starsystem.dev/blog/</loc>
-         <lastmod>2026-08-19</lastmod>
+         <lastmod>2026-08-20</lastmod>
     </url>
     <url>
          <loc>https://starsystem.dev/network/firewall/</loc>
-         <lastmod>2026-08-19</lastmod>
+         <lastmod>2026-08-20</lastmod>
     </url>
     <url>
          <loc>https://starsystem.dev/network/reverse-proxy/</loc>
-         <lastmod>2026-08-19</lastmod>
+         <lastmod>2026-08-20</lastmod>
     </url>
     <url>
          <loc>https://starsystem.dev/network/vpn/</loc>
-         <lastmod>2026-08-19</lastmod>
+         <lastmod>2026-08-20</lastmod>
     </url>
     <url>
          <loc>https://starsystem.dev/network/sso/</loc>
-         <lastmod>2026-08-19</lastmod>
+         <lastmod>2026-08-20</lastmod>
     </url>
     <url>
          <loc>https://starsystem.dev/network/sso/ad/</loc>
-         <lastmod>2026-08-19</lastmod>
+         <lastmod>2026-08-20</lastmod>
     </url>
     <url>
          <loc>https://starsystem.dev/network/sso/ldap/</loc>
-         <lastmod>2026-08-19</lastmod>
+         <lastmod>2026-08-20</lastmod>
     </url>
     <url>
          <loc>https://starsystem.dev/network/sso/oidc/</loc>
-         <lastmod>2026-08-19</lastmod>
+         <lastmod>2026-08-20</lastmod>
     </url>
     <url>
          <loc>https://starsystem.dev/storage/databases/</loc>
-         <lastmod>2026-08-19</lastmod>
+         <lastmod>2026-08-20</lastmod>
     </url>
     <url>
          <loc>https://starsystem.dev/storage/time-machine/</loc>
-         <lastmod>2026-08-19</lastmod>
+         <lastmod>2026-08-20</lastmod>
     </url>
 </urlset>
