@@ -137,6 +137,8 @@ configure_samba() {
     echo "[INFO] Configuring Samba..."
     cat > /etc/samba/smb.conf <<EOF
 [global]
+    min protocol = SMB3
+
     # --- Logging
     log file = /var/log/samba/log.%m
     logging = file
