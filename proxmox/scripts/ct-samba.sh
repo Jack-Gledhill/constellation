@@ -96,7 +96,7 @@ install_apt_packages() {
 configure_kerberos() {
     cat > /etc/krb5.conf <<EOF
 [libdefaults]
-    default_realm = ${DOMAIN}
+    default_realm = ${DOMAIN^^}
     dns_lookup_realm = false
     dns_lookup_kdc = true
 EOF
@@ -141,6 +141,7 @@ configure_samba() {
 [global]
     # --- Server discovery
     server string = ${HOSTNAME^^}
+    netbios name = ${HOSTNAME^^}
     mdns name = netbios
     disable netbios = yes
     smb ports = 445
@@ -156,7 +157,7 @@ configure_samba() {
     panic action = /usr/share/samba/panic-action %d
 
     # --- Active Directory
-    workgroup = ${WORKGROUP}
+    workgroup = ${WORKGROUP^^}
     realm = ${DOMAIN}
     security = ADS
     winbind use default domain = yes
@@ -172,8 +173,8 @@ configure_samba() {
     # --- ID mapping between Unix and Windows
     idmap config * : backend = tdb
     idmap config * : range = 0-999999
-    idmap config ${WORKGROUP} : backend = rid
-    idmap config ${WORKGROUP} : range = 1000000-1999999
+    idmap config ${WORKGROUP^^} : backend = rid
+    idmap config ${WORKGROUP^^} : range = 1000000-1999999
 
     # --- macOS and Time Machine settings
     ea support = yes
@@ -204,6 +205,7 @@ configure_samba() {
     hide unreadable = yes
     access based share enum = yes
 EOF
+    mkdir -p /etc/samba/smb.conf.d
     testparm -s
     echo "[INFO] Samba config was successful"
 }
@@ -237,4 +239,3 @@ configure_pam
 configure_nsswitch
 join_domain
 apply_changes
-mkdir -p /etc/samba/smb.conf.d
