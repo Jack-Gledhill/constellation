@@ -88,7 +88,9 @@ install_apt_packages() {
         libpam-winbind \
         libnss-winbind \
         krb5-user \
-        krb5-config
+        krb5-config \
+        avahi-daemon \
+        libnss-mdns
     echo "[INFO] Finished installing APT packages"
 }
 
@@ -135,9 +137,18 @@ configure_pam() {
 
 configure_samba() {
     echo "[INFO] Configuring Samba..."
+    HOSTNAME=$(hostname -s)
     cat > /etc/samba/smb.conf <<EOF
 [global]
+    # --- Server discovery
+    server string = ${HOSTNAME^^}/STARSYSTEM
+    mdns name = ${HOSTNAME^^}/STARSYSTEM
+    disable netbios = yes
+    smb ports = 445
+
+    # --- Security
     min protocol = SMB3
+    smb encrypt = desired
 
     # --- Logging
     log file = /var/log/samba/log.%m
@@ -166,10 +177,33 @@ configure_samba() {
     idmap config ${WORKGROUP} : range = 1000000-1999999
 
     # --- macOS and Time Machine settings
+    ea support = yes
     vfs objects = catia fruit streams_xattr acl_xattr
+    fruit:aapl = yes
     fruit:metadata = stream
+    fruit:resource = stream
+    fruit:model = Xserve
     fruit:posix_rename = yes
     fruit:veto_appledouble = no
+    fruit:nfs_aces = no
+    fruit:wipe_intentionally_left_blank_rfork = yes
+    fruit:delete_empty_adfiles = yes
+    fruit:copyfile = yes
+    readdir_attr:aapl_finder_info = yes
+    readdir_attr:aapl_max_access = yes
+
+    # --- Elasticsearch and macOS Spotlight
+    spotlight backend = noindex
+    elasticsearch:address = localhost
+
+    # --- Disable printers
+    load printers = no
+    printcap name = /dev/null
+    disable spoolss = yes
+
+    # --- Share visibility
+    hide unreadable = yes
+    access based share enum = yes
 EOF
     testparm -s
     echo "[INFO] Samba config was successful"
@@ -183,8 +217,8 @@ join_domain() {
 }
 
 apply_changes() {
-    systemctl enable smbd nmbd winbind
-    systemctl restart smbd nmbd winbind
+    systemctl enable smbd nmbd winbind avahi-daemon
+    systemctl restart smbd nmbd winbind avahi-daemon
 }
 
 if [ -z "${DOMAIN}" ]; then
