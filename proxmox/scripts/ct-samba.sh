@@ -200,10 +200,6 @@ configure_samba() {
     load printers = no
     printcap name = /dev/null
     disable spoolss = yes
-
-    # --- Share visibility
-    hide unreadable = yes
-    access based share enum = yes
 EOF
     mkdir -p /etc/samba/smb.conf.d
     testparm -s
