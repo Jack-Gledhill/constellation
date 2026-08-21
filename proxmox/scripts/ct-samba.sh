@@ -145,6 +145,7 @@ configure_samba() {
     mdns name = netbios
     disable netbios = yes
     smb ports = 445
+    host msdfs = no
 
     # --- Security
     min protocol = SMB3
@@ -161,7 +162,7 @@ configure_samba() {
     realm = ${DOMAIN}
     security = ADS
     winbind use default domain = yes
-    winbind offline logon = no
+    winbind offline logon = yes
     winbind enum users = yes
     winbind enum groups = yes
     winbind refresh tickets = yes
