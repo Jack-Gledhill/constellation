@@ -1,0 +1,8 @@
+# /etc/hawser/config
+
+AGENT_NAME={{ ansible_hostname }}
+DOCKHAND_SERVER_URL={{ ct_hawser.dockhand_url }}
+TOKEN={{ ct_hawser.agent_token }}
+
+DOCKER_SOCKET=/var/run/docker.sock
+BIND_ADDRESS=127.0.0.1

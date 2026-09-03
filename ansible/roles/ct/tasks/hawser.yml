@@ -1,0 +1,30 @@
+---
+- name: Install Hawser agent
+  tags: hawser
+
+  block:
+    - name: Download Hawser installer
+      ansible.builtin.get_url:
+        url: https://raw.githubusercontent.com/Finsys/hawser/main/scripts/install.sh
+        dest: /tmp/hawswer-installer.sh
+        owner: root
+        group: root
+        mode: "0744"
+
+    - name: Run Hawser installer
+      ansible.builtin.command: /tmp/hawser-installer.sh
+      register: hawser_installer
+      failed_when: hawser_installer.rc != 0
+
+    - name: Configure Hawser agent
+      ansible.builtin.template:
+        src: hawser.j2
+        dest: /etc/hawser/config
+        owner: root
+        group: root
+        mode: "0600"
+
+    - name: Enable Hawser agent
+      ansible.builtin.service:
+        name: hawser
+        state: enabled

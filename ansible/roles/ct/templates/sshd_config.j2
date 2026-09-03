@@ -1,0 +1,29 @@
+# /etc/ssh/sshd_config
+
+AddressFamily {{ ct_sshd.address_family }}
+ListenAddress 0.0.0.0
+Port 22
+Protocol 2
+
+LogLevel {{ ct_sshd.log_level }}
+
+AuthorizedKeysFile .ssh/authorized_keys
+AuthorizedKeysCommand /usr/bin/sss_ssh_authorizedkeys
+AuthorizedKeysCommandUser nobody
+
+Banner none
+PrintMotd no
+
+AllowGroups {{ ct_sshd.allowed_groups }}
+AllowUsers {{ ct_sshd.allowed_users }}
+DenyGroups {{ ct_sshd.disallowed_groups }}
+DenyUsers {{ ct_sshd.disallowed_users }}
+
+ChallengeResponseAuthentication {{ ct_sshd.allow_challenge_response_authentication }}
+PasswordAuthentication {{ ct_sshd.allow_password_authentication }}
+PubkeyAuthentication {{ ct_sshd.allow_pubkey_authentication }}
+
+PermitEmptyPasswords {{ ct_sshd.permit_empty_passwords }}
+PermitRootLogin {{ ct_sshd.permit_root_login }}
+
+UsePAM {{ ct_sshd.use_pam }}

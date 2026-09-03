@@ -1,0 +1,4 @@
+---
+ct_nvidia:
+  driver_version: 580.159.04
+  container_toolkit_version: 1.20.0-1

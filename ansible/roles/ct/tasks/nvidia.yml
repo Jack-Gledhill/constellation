@@ -1,0 +1,55 @@
+---
+- name: Install NVIDIA drivers and Container Toolkit
+  tags: nvidia
+
+  block:
+    - name: Install NVIDIA Container Toolkit dependencies
+      ansible.builtin.apt:
+        name:
+          - gnupg2
+          - ca-certificates
+        state: present
+        update_cache: yes
+
+    - name: Download NVIDIA driver installer
+      ansible.builtin.get_url:
+        url: https://us.download.nvidia.com/XFree86/Linux-x86_64/{{ ct_nvidia.driver_version }}/NVIDIA-Linux-x86_64-{{ ct_nvidia.driver_version }}.run
+        dest: /tmp/nvct-installer-{{ ct_nvidia.driver_version }}.run
+        owner: root
+        group: root
+        mode: "0744"
+
+    - name: Run NVIDIA driver installer
+      ansible.builtin.command: /tmp/nvct-installer-{{ ct_nvidia.driver_version }}.run --no-kernel-modules --ui=none
+      register: nvidia_driver_installer
+      failed_when: nvidia_driver_installer.rc != 0
+
+    - name: Setup NVIDIA Container Toolkit repository
+      ansible.builtin.deb822_repository:
+        name: nvidia
+        types: deb
+        uris: https://nvidia.github.io/libnvidia-container/stable/deb/amd64
+        suites: /
+        signed_by: https://nvidia.github.io/libnvidia-container/gpgkey
+        state: present
+
+    - name: Install NVIDIA Container Toolkit
+      ansible.builtin.apt:
+        name:
+          - nvidia-container-toolkit={{ ct_nvidia.container_toolkit_version }}
+          - nvidia-container-toolkit-base={{ ct_nvidia.container_toolkit_version }}
+          - libnvidia-container-tools={{ ct_nvidia.container_toolkit_version }}
+          - libnvidia-container1={{ ct_nvidia.container_toolkit_version }}
+        state: present
+        update_cache: yes
+
+    - name: Configure NVIDIA Container Toolkit for Docker
+      ansible.builtin.command: nvidia-ctk runtime configure --runtime=docker
+      register: nvidia_docker_configure
+      when: nvidia_docker_configure.rc != 0
+
+    - name: Disable CGroups for NVIDIA Container Toolkit
+      ansible.builtin.command: nvidia-ctk config --set nvidia-container-cli.no-cgroups --in-place
+      register: nvidia_disable_cgroups
+      when: nvidia_disable_cgroups.rc != 0
+      notify: Restart docker

@@ -1,0 +1,19 @@
+---
+ct_sshd:
+  log_level: ERROR
+  address_family: inet
+
+  use_pam: yes
+
+  allow_challenge_response_authentication: no
+  allow_password_authentication: yes
+  allow_pubkey_authentication: yes
+
+  permit_root_login: yes
+  permit_empty_passwords: no
+
+  allowed_groups: [ ]
+  allowed_users:
+    - root
+  disallowed_groups: [ ]
+  disallowed_users: [ ]

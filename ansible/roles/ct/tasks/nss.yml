@@ -1,0 +1,9 @@
+---
+- name: Enable sssd in NSS
+  ansible.builtin.copy:
+    src: nsswitch.conf
+    dest: /etc/nsswitch.conf
+    owner: root
+    group: root
+    mode: "0644"
+  tags: sssd

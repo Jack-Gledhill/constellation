@@ -1,0 +1,12 @@
+---
+ct_sssd:
+  domain_name: example.com
+  default_home_directory: /home/%u
+  default_shell: /usr/sbin/nologin
+
+  ldap:
+    uri: ldaps://ldap.example.com/
+    ca_cert: /etc/ssl/certs/ca-certificates.crt # Use a custom path for self-signed certificates
+    search_base: dc=example,dc=com
+    bind_dn: uid=sssd,ou=people
+    bind_password: password # You should use Ansible Vault to encrypt this password

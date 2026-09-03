@@ -1,0 +1,9 @@
+---
+galaxy_info:
+  author: Jack-Gledhill
+  description: Joins a Debian LXC to an LDAP domain via SSSD
+  license: GPL-3.0
+  min_ansible_version: 11.2.0
+  galaxy_tags:
+    - sssd
+    - ldap

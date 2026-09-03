@@ -1,0 +1,16 @@
+# /etc/sssd/sssd.conf
+
+[sssd]
+config_file_version = 2
+domains = {{ ct_sssd.domain_name }}
+services = nss, pam, ssh
+
+[nss]
+filter_users = root
+filter_groups = root
+
+[pam]
+offline_failed_login_attempts = 3
+offline_failed_login_delay = 5
+
+[ssh]

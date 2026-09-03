@@ -1,0 +1,37 @@
+---
+- name: Install SSSD and enrol host
+  tags: sssd
+
+  block:
+    - name: Install SSSD and dependencies
+      ansible.builtin.apt:
+        name:
+          - sssd
+          - sssd-tools
+          - libsss-sudo
+          - libnss-sss
+          - libpam-sss
+        state: present
+        update_cache: yes
+
+    - name: Set global SSSD configuration
+      ansible.builtin.template:
+        src: sssd.conf.j2
+        dest: /etc/sssd/sssd.conf
+        owner: root
+        group: root
+        mode: "0600"
+
+    - name: Add LDAP domain configuration
+      ansible.builtin.template:
+        src: domain.conf.j2
+        dest: /etc/sssd/conf.d/{{ ct_sssd.domain_name }}.conf
+        owner: root
+        group: root
+        mode: "0600"
+
+    - name: Verify configuration
+      ansible.builtin.command: sssctl config-check
+      register: sssd_config_check
+      failed_when: sssd_config_check.rc != 0
+      notify: Restart sssd

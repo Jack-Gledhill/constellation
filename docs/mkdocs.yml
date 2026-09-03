@@ -17,14 +17,12 @@ nav:
   - Blog: blog/index.md
   - Storage:
       - Databases: storage/databases.md
-      - SMB: storage/smb.md
   - Network:
       - Firewall: network/firewall.md
       - Reverse Proxy: network/reverse-proxy.md
       - VPN: network/vpn.md
       - Single Sign-On:
           - Single Sign-On: network/sso/index.md
-          - Active Directory: network/sso/ad.md
           - LDAP: network/sso/ldap.md
           - OIDC: network/sso/oidc.md
 
