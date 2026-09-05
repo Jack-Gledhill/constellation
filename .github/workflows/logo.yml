@@ -29,7 +29,7 @@ jobs:
         working-directory: assets/logo
         run: |
           for file in *.svg; do
-            convert "$file" "${file%.svg}.png"
+            convert -background none "$file" "${file%.svg}.png"
           done
 
       - name: Push changes back to repository
