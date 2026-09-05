@@ -20,16 +20,16 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Install ImageMagick
+      - name: Install Inkscape
         run: |
           sudo apt-get update
-          sudo apt-get install -y imagemagick
+          sudo apt-get install -y inkscape
 
       - name: Export SVGs to PNG
         working-directory: assets/logo
         run: |
           for file in *.svg; do
-            convert -background none "$file" "${file%.svg}.png"
+            inkscape --export-width=500 --export-filename="${file%.svg}.png" "$file"
           done
 
       - name: Push changes back to repository
