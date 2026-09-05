@@ -1,0 +1,40 @@
+name: Export logo
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - "assets/logo/*.svg"
+      - ".github/workflows/logo.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: logo
+  cancel-in-progress: true
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install ImageMagick
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+
+      - name: Export SVGs to PNG
+        working-directory: assets/logo
+        run: |
+          for file in *.svg; do
+            convert "$file" "${file%.svg}.png"
+          done
+
+      - name: Push changes back to repository
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: "chore(logo): Re-render logo from source files"
+          commit_author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          file_pattern: "*.png"
