@@ -5,3 +5,4 @@ inventory.yml
 .lock
 .venv/
 .cache/
+.DS_Store
