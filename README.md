@@ -62,5 +62,5 @@ Unless otherwise specified, all original materials in this repository are licens
 the [GNU General Public License v3.0](https://choosealicense.com/licenses/gpl-3.0/).
 
 The Constellation logo and wordmark are licensed under
-the [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) license and should may be reproduced without
+the [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) license and may not be reproduced without
 proper attribution or for commercial purposes.
