@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+SPDX-FileCopyrightText: 2026 Jack Gledhill <me@jackgledhill.com>
+SPDX-License-Identifier: CC-BY-NC-ND-4.0
+-->
 <svg width="1e3" height="1e3" version="1.0" viewBox="0 0 750 750" xmlns="http://www.w3.org/2000/svg"
      zoomAndPan="magnify">
     <title>Constellation</title>
