@@ -24,22 +24,21 @@ That said, having everything in one repository makes management a lot easier, an
 ```
 constellation
 ├── ansible/          # Ansible Playbooks for automating tasks
-│   ├── files/
-│   ├── templates/
+│   ├── group_vars/
+│   ├── host_vars/
+│   ├── roles/
 │   └── inventory.yml
 ├── assets            # Source and rastor files for Constellation's branding
 │   └── logo/
 ├── docs/             # MkDocs project files for Constellation's website
-│   ├── src/
 │   ├── includes/
 │   ├── overrides/
+│   ├── src/
 │   └── mkdocs.yml
-├── kubernetes        # Kubernetes manifests managed by ArgoCD
-│   ├── apps/
-│   └── argocd/
-└── proxmox           # Resources for Proxmox LXCs and VMs
-    ├── scripts/
-    └── stacks/
+└── kubernetes        # Kubernetes manifests managed by ArgoCD
+    ├── apps/
+    ├── argocd/
+    └── bootstrap/
 ```
 
 ---
