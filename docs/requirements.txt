@@ -13,7 +13,7 @@ defusedxml==0.7.1
 filelock==3.32.6
 ghp-import==2.1.0
 gitdb==4.0.12
-GitPython==3.1.59
+GitPython==3.1.62
 idna==3.18
 Jinja2==3.1.6
 Markdown==3.10.3
@@ -46,6 +46,6 @@ selectolax==0.4.11
 six==1.17.0
 smmap==5.0.3
 tinycss2==1.5.1
-urllib3==2.7.0
+urllib3==2.8.0
 watchdog==6.0.0
 webencodings==0.5.1
