@@ -5,6 +5,5 @@ resources:
   - external-secrets.yml
   - jetstack.yml
   - metallb.yml
-  - nfs-csi.yml
   - prometheus-community.yml
   - stakater.yml

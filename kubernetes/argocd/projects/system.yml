@@ -10,14 +10,11 @@ spec:
   sourceRepos:
     - https://github.com/Jack-Gledhill/constellation.git
     - https://stakater.github.io/stakater-charts
-    - https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts
   destinations:
     - server: https://kubernetes.default.svc
       namespace: kube-system
     - server: https://kubernetes.default.svc
       namespace: local-path-provisioner
-    - server: https://kubernetes.default.svc
-      namespace: nfs-csi
   clusterResourceWhitelist:
     - group: "*"
       kind: "*"
