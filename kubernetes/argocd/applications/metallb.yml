@@ -1,0 +1,60 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: metallb
+  labels:
+    argocd.argoproj.io/sync-wave: "0"
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-change.github: Jack-Gledhill/constellation
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: network
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: metallb-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    managedNamespaceMetadata:
+      labels:
+        pod-security.kubernetes.io/enforce: privileged
+        pod-security.kubernetes.io/audit: privileged
+        pod-security.kubernetes.io/warn: privileged
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+  sources:
+    - repoURL: https://github.com/Jack-Gledhill/constellation.git
+      targetRevision: main
+      path: kubernetes/apps/metallb
+    - chart: metallb
+      repoURL: https://metallb.github.io/metallb
+      targetRevision: 0.16.1
+      helm:
+        valuesObject:
+          crds:
+            enabled: false
+          prometheus:
+            rbacPrometheus: false
+            serviceMonitor:
+              enabled: true
+          controller:
+            priorityClassName: system-cluster-critical
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 200Mi
+          speaker:
+            priorityClassName: system-cluster-critical
+            resources:
+              requests:
+                cpu: 10m
+                memory: 200Mi
+              limits:
+                memory: 400Mi
+          networkpolicies:
+            enabled: true

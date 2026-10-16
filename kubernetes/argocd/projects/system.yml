@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: system
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: A service belongs here if it provides critical functionality to the cluster, but very little to the end-user directly.
+  sourceRepos:
+    - https://github.com/Jack-Gledhill/constellation.git
+    - https://stakater.github.io/stakater-charts
+    - https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: kube-system
+    - server: https://kubernetes.default.svc
+      namespace: local-path-provisioner
+    - server: https://kubernetes.default.svc
+      namespace: nfs-csi
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+  namespaceResourceWhitelist:
+    - group: "*"
+      kind: "*"

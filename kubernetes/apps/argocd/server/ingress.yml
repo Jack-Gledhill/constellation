@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argocd
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+#    traefik.ingress.kubernetes.io/router.middlewares: traefik-system-intranet-only@kubernetescrd
+spec:
+  tls:
+    - hosts:
+        - argocd.hydra.starsystem.dev
+      secretName: argocd-tls
+  rules:
+    - host: argocd.hydra.starsystem.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: argocd-server
+                port:
+                  number: 80

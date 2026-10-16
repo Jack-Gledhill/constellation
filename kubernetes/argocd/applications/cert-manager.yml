@@ -1,0 +1,65 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+  labels:
+    argocd.argoproj.io/sync-wave: "0"
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-change.github: Jack-Gledhill/constellation
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: network
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cert-manager
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    managedNamespaceMetadata:
+      labels:
+        pod-security.kubernetes.io/enforce: baseline
+        pod-security.kubernetes.io/audit: restricted
+        pod-security.kubernetes.io/warn: restricted
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+  sources:
+    - repoURL: https://github.com/Jack-Gledhill/constellation.git
+      targetRevision: main
+      path: kubernetes/apps/cert-manager
+    - chart: cert-manager
+      repoURL: https://charts.jetstack.io
+      targetRevision: v1.20.3
+      helm:
+        valuesObject:
+          global:
+            priorityClassName: system-cluster-critical
+            rbac:
+              aggregateClusterRoles: false
+            leaderElection:
+              namespace: cert-manager
+          prometheus:
+            enabled: true
+            podmonitor:
+              enabled: true
+          enableCertificateOwnerRef: true
+          dns01RecursiveNameservers: 1.0.0.1:53,1.1.1.1:53
+          # --- Recommended High Availability settings
+          podDisruptionBudget:
+            enabled: true
+            minAvailable: 1
+          replicaCount: 2
+          webhook:
+            replicaCount: 3
+            networkPolicy:
+              enabled: true
+            podDisruptionBudget:
+              enabled: true
+              minAvailable: 1
+          cainjector:
+            replicaCount: 2
+            podDisruptionBudget:
+              enabled: true
+              minAvailable: 1

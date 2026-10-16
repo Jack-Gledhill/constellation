@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: sso
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: Services that run the network's Single Sign-on system
+  sourceRepos:
+    - https://github.com/Jack-Gledhill/constellation.git
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: authelia
+    - server: https://kubernetes.default.svc
+      namespace: lldap
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+  namespaceResourceWhitelist:
+    - group: "*"
+      kind: "*"
