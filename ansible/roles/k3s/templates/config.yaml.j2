@@ -1,0 +1,24 @@
+# /etc/rancher/k3s/config.yaml
+
+node-name: {{ inventory_hostname_short }}
+node-label: {{ k3s.node.labels | list }}
+node-taint: {{ k3s.node.taints | list }}
+
+server: {{ k3s.server }}
+token: {{ k3s.token }}
+cluster-init: {{ k3s.node.init_cluster }}
+
+disable: {{ k3s.cluster.disable | list }}
+disable-cloud-controller: {{ k3s.cluster.disable_cloud_controller }}
+
+secrets-encryption: true
+write-kubeconfig-mode: 0644
+
+cluster-domain: {{ k3s.cluster.domain }}
+tls-san: {{ k3s.cluster.tls_san | list }}
+cluster-cidr: {{ k3s.cluster.pod_cidr }}
+service-cidr: {{ k3s.cluster.service_cidr }}
+cluster-dns: {{ k3s.cluster.cluster_dns }}
+flannel-backend: wireguard-native
+
+etcd-expose-metrics: true

@@ -1,0 +1,26 @@
+---
+k3s:
+  install: false
+  server: "" # Full HTTPS address of a control plane node to join to
+  token: "" # You should use Ansible Vault to encrypt this password
+
+  node:
+    init_cluster: false # When true, this node inits a new cluster
+    role: server # or 'agent'
+    labels: [ ]
+    taints: [ ]
+
+  cluster:
+    domain: cluster.local
+    tls_san:
+      - cluster.example.com
+
+    service_cidr: 10.43.0.0/16
+    pod_cidr: 10.42.0.0/16
+    cluster_dns: 10.43.0.10
+
+    disable:
+      - traefik
+      - local-storage
+      - servicelb
+    disable_cloud_controller: true

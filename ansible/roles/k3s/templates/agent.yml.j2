@@ -1,5 +1,0 @@
-# /etc/rancher/k3s/config.yaml
-
-node-name: {{ inventory_hostname_short }}
-node-label: {{ kubernetes_node.labels | list }}
-node-taint: {{ kubernetes_node.taints | list }}
