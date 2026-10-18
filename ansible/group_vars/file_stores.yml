@@ -1,0 +1,7 @@
+---
+sshd:
+  install: true
+
+  acls:
+    disallowed_groups:
+      - service_accounts

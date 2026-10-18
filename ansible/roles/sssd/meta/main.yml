@@ -1,0 +1,9 @@
+---
+galaxy_info:
+  author: Jack-Gledhill
+  description: Installs SSSD and joins the machine to a domain via LDAP
+  license: GPL-3.0
+  min_ansible_version: 11.2.0
+  galaxy_tags:
+    - sssd
+    - ldap

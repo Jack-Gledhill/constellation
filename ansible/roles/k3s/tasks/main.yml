@@ -1,0 +1,3 @@
+---
+- import_tasks: control_plane.yml
+- import_tasks: agent.yml

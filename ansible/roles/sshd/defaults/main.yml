@@ -1,0 +1,27 @@
+---
+sshd:
+  install: false
+
+  address_family: any # use inet for IPv4 only or inet6 for IPv6 only
+  listen_address: 0.0.0.0
+  port: 22
+  log_level: ERROR # can also be 'QUIET', 'FATAL', 'ERROR', 'INFO', 'VERBOSE' or 'DEBUG'
+  use_pam: no # set to 'yes' when using SSSD
+
+  authentication:
+    allow_keyboard_interactive: no
+    allow_password: yes
+    allow_pubkey: yes
+    permit_root_login: no # can also be 'prohibit-password', 'forced-commands-only' or 'yes'
+    permit_empty_passwords: no
+
+  authorized_keys:
+    command: "" # use '/usr/bin/sss_ssh_authorizedkeys' when in an SSSD domain
+    command_user: nobody
+    file: .ssh/authorized_keys .ssh/authorized_keys2
+
+  acls:
+    allowed_groups: [ ]
+    allowed_users: [ ]
+    disallowed_groups: [ ]
+    disallowed_users: [ ]

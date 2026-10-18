@@ -1,0 +1,28 @@
+# /etc/ssh/sshd_config
+
+AddressFamily {{ sshd.address_family }}
+ListenAddress {{ sshd.listen_address }}
+Port {{ sshd.port }}
+
+LogLevel {{ sshd.log_level }}
+
+AuthorizedKeysFile {{ sshd.authorized_keys.file }}
+AuthorizedKeysCommand {{ sshd.authorized_keys.command }}
+AuthorizedKeysCommandUser {{ sshd.authorized_keys.command_user }}
+
+Banner none
+PrintMotd no
+
+AllowGroups {{ sshd.acls.allowed_groups }}
+AllowUsers {{ sshd.acls.allowed_users }}
+DenyGroups {{ sshd.acls.disallowed_groups }}
+DenyUsers {{ sshd.acls.disallowed_users }}
+
+KbdInteractiveAuthentication {{ sshd.authentication.allow_keyboard_interactive }}
+PasswordAuthentication {{ sshd.authentication.allow_password }}
+PubkeyAuthentication {{ sshd.authentication.allow_pubkey }}
+
+PermitEmptyPasswords {{ sshd.authentication.permit_empty_passwords }}
+PermitRootLogin {{ sshd.authentication.permit_root_login }}
+
+UsePAM {{ sshd.use_pam }}

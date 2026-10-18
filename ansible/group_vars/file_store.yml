@@ -1,4 +1,0 @@
----
-ct_sshd:
-  disallowed_groups:
-    - service_accounts

@@ -1,0 +1,7 @@
+---
+- name: Configure PAM to work with SSSD
+  when: sssd.configure_pam
+
+  block:
+    - name: Enable automatic home directory creation
+      ansible.builtin.command: pam-auth-update --enable mkhomedir

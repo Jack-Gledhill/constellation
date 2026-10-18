@@ -1,4 +1,0 @@
----
-- name: Enable automatic home directory creation
-  ansible.builtin.command: pam-auth-update --enable mkhomedir
-  tags: sssd

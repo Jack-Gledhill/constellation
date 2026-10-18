@@ -1,0 +1,33 @@
+---
+- name: Setup agent nodes
+  when: kubernetes_node.role == "agent"
+
+  block:
+    - name: Creates k3s directory if needed
+      ansible.builtin.file:
+        path: /etc/rancher/k3s
+        state: directory
+        owner: root
+        group: root
+        mode: "0755" # U:RWX, G:RX, O:RX
+
+    - name: Upload config file
+      ansible.builtin.template:
+        src: templates/agent.yml.j2
+        dest: /etc/rancher/k3s/config.yaml
+        force: true
+        owner: root
+        group: root
+        mode: "0644" # U:RW, G:R, O:R
+
+    - name: Download k3s installation script
+      ansible.builtin.get_url:
+        url: https://get.k3s.io
+        dest: /tmp/k3s.sh
+        mode: "0700" # U:RWX, G:N, O:N
+
+    - name: Run the k3s installation script
+      ansible.builtin.command:
+        cmd: bash /tmp/k3s.sh agent # TODO
+      register: res
+      changed_when: res.rc == 0

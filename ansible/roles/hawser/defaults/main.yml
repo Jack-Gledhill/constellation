@@ -1,0 +1,6 @@
+---
+hawser:
+  install: false
+
+  dockhand_url: wss://dockhand.example.com/api/hawser/connect
+  token: ABCDEFGHIJKLMNOPQRSTUVWXYZ # You should use Ansible Vault to encrypt this token

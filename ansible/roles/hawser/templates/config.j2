@@ -1,0 +1,8 @@
+# /etc/hawser/config
+
+AGENT_NAME={{ inventory_hostname_short }}
+DOCKHAND_SERVER_URL={{ hawser.dockhand_url }}
+TOKEN={{ hawser.agent_token }}
+
+DOCKER_SOCKET=/var/run/docker.sock
+BIND_ADDRESS=127.0.0.1

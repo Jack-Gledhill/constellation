@@ -1,0 +1,12 @@
+---
+- name: Add SSSD to Name Switch Service
+  when: sssd.configure_nss
+
+  block:
+    - name: Enable sssd in nsswitch.conf
+      ansible.builtin.copy:
+        src: files/nsswitch.conf
+        dest: /etc/nsswitch.conf
+        owner: root
+        group: root
+        mode: "0644" # U:RW, G:R, O:R

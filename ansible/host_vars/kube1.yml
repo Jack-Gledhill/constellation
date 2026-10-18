@@ -1,0 +1,22 @@
+---
+ansible_user: root
+ansible_host: kube1.starsystem.dev
+ansible_port: 22
+
+kubernetes_node:
+  role: control_plane
+  labels:
+    - starsystem.dev/hypervisor: pve1
+
+nvidia:
+  drivers:
+    install: true
+    version: 580.178.04
+    installer_args:
+      - --dkms
+    #  - --no-kernel-modules
+  container_toolkit:
+    install: true
+    version: 1.20.1
+    runtime: containerd # or 'docker'
+    rootless: false

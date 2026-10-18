@@ -1,17 +1,27 @@
+# /etc/rancher/k3s/config.yaml
+
 node-name: {{ inventory_hostname_short }}
-node-label: {{ labels | list }}
-node-taint: {{ taints | list }}
+node-label: {{ kubernetes_node.labels | list }}
+node-taint: {{ kubernetes_node.taints | list }}
 
-server: https://{{ cluster.join_ip }}:6443
-token: {{ cluster.token }}
-
-cluster-domain: {{ cluster.network.domain }}
-disable: {{ cluster.disable | list }}
-disable-cloud-controller: {{ cluster.disable_cloud_controller }}
-flannel-backend: {{ cluster.network.flannel_backend }}
+cluster-domain: {{ kubernetes_cluster.network.domain }}
+disable: {{ kubernetes_cluster.disable | list }}
+disable-cloud-controller: {{ kubernetes_cluster.disable_cloud_controller }}
+flannel-backend: {{ kubernetes_cluster.network.flannel_backend }}
+tls-san: {{ kubernetes_cluster.network.tls_san | list }}
 secrets-encryption: true
 write-kubeconfig-mode: 0644
 
-cluster-cidr: {{ cluster.network.pod_cidr }}
-service-cidr: {{ cluster.network.service_cidr }}
-cluster-dns: {{ cluster.network.cluster_dns }}
+cluster-cidr: {{ kubernetes_cluster.network.pod_cidr }}
+service-cidr: {{ kubernetes_cluster.network.service_cidr }}
+cluster-dns: {{ kubernetes_cluster.network.cluster_dns }}
+
+etcd-expose-metrics: true
+etcd-disable-snapshots: {{ kubernetes_cluster.etcd.snapshots.disabled }}
+etcd-snapshot-retention: {{ kubernetes_cluster.etcd.snapshots.retention }}
+etcd-snapshot-dir: {{ kubernetes_cluster.etcd.snapshots.directory }}
+
+etcd-s3: {{ kubernetes_cluster.etcd.s3.enabled }}
+etcd-s3-access-key: {{ kubernetes_cluster.etcd.s3.access_key }}
+etcd-s3-secret-key: {{ kubernetes_cluster.etcd.s3.secret_key }}
+etcd-s3-bucket: {{ kubernetes_cluster.etcd.s3.bucket }}
