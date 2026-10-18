@@ -1,13 +1,8 @@
 ---
 k3s:
-  install: false
+  install: true
+  server: https://kube1.starsystem.dev:6443
   token: # TODO
-
-  node:
-    init_cluster: true
-    role: server # or 'agent'
-    labels: [ ]
-    taints: [ ]
 
   cluster:
     domain: hydra.starsystem.dev

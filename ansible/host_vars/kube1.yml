@@ -3,10 +3,15 @@ ansible_user: root
 ansible_host: kube1.starsystem.dev
 ansible_port: 22
 
-kubernetes_node:
-  role: control_plane
-  labels:
-    - starsystem.dev/hypervisor: pve1
+k3s:
+  server: ""
+
+  node:
+    init_cluster: true
+    role: server
+    labels:
+      - starsystem.dev/hypervisor: pve1
+    taints: [ ]
 
 nvidia:
   drivers:
@@ -14,9 +19,8 @@ nvidia:
     version: 580.178.04
     installer_args:
       - --dkms
-    #  - --no-kernel-modules
   container_toolkit:
     install: true
     version: 1.20.1
-    runtime: containerd # or 'docker'
+    runtime: containerd
     rootless: false
