@@ -1,0 +1,10 @@
+---
+galaxy_info:
+  author: Jack-Gledhill
+  description: Installs NVIDIA drivers and toolkits on Debian/Ubuntu systems
+  license: GPL-3.0
+  min_ansible_version: 11.2.0
+  galaxy_tags:
+    - nvidia
+    - container-toolkit
+    - gpu

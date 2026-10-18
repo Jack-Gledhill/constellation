@@ -1,0 +1,51 @@
+---
+- name: Install NVIDIA Container Toolkit
+  when: nvidia.container_toolkit.install
+
+  block:
+    - ansible.builtin.set_fact:
+        repo_arch: amd64
+      when: ansible_architecture in ["x86_64", "amd64"]
+
+    - ansible.builtin.set_fact:
+        repo_arch: arm64
+      when: ansible_architecture in ["aarch64", "arm64"]
+
+    - name: Install Container Toolkit dependencies
+      ansible.builtin.apt:
+        name:
+          - gnupg2
+          - ca-certificates
+        state: present
+        update_cache: yes
+
+    - name: Setup Container Toolkit repository
+      ansible.builtin.deb822_repository:
+        name: nvidia
+        types: deb
+        uris: https://nvidia.github.io/libnvidia-container/stable/deb/{{ repo_arch }}
+        suites: /
+        signed_by: https://nvidia.github.io/libnvidia-container/gpgkey
+        state: present
+
+    - name: Install Container Toolkit
+      ansible.builtin.apt:
+        name:
+          - nvidia-container-toolkit={{ nvidia.container_toolkit.version }}
+          - nvidia-container-toolkit-base={{ nvidia.container_toolkit.version }}
+          - libnvidia-container-tools={{ nvidia.container_toolkit.version }}
+          - libnvidia-container1={{ nvidia.container_toolkit.version }}
+        state: present
+        update_cache: yes
+
+    - name: Disable CGroups for Container Toolkit
+      ansible.builtin.command: nvidia-ctk config --set nvidia-container-cli.no-cgroups --in-place
+      register: disable_cgroups
+      failed_when: disable_cgroups.rc != 0
+      when: nvidia.container_toolkit.rootless
+
+    - name: Set Container Toolkit runtime
+      ansible.builtin.command: nvidia-ctk runtime configure --runtime={{ nvidia.container_toolkit.runtime }}
+      register: set_runtime
+      failed_when: set_runtime.rc != 0
+      notify: Restart {{ nvidia.container_toolkit.runtime }}

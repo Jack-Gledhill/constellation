@@ -1,0 +1,12 @@
+---
+nvidia:
+  drivers:
+    install: false
+    version: 580.178.04
+    installer_args:
+      - --dkms # replace with --no-kernel-modules on LXCs
+  container_toolkit:
+    install: false
+    version: 1.20.1
+    runtime: containerd # or 'docker'
+    rootless: false # set to true for LXCs

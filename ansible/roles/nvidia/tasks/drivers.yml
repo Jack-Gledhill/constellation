@@ -1,0 +1,28 @@
+---
+- name: Install NVIDIA proprietary drivers
+  when: nvidia.drivers.install
+
+  block:
+    - ansible.builtin.set_fact:
+        installer_arch: Linux-x86_64
+      when: ansible_architecture in ["x86_64", "amd64"]
+
+    - ansible.builtin.set_fact:
+        installer_arch: aarch64
+      when: ansible_architecture in ["aarch64", "arm64"]
+
+    - ansible.builtin.set_fact:
+        installer_filename: NVIDIA-{{ installer_arch }}-{{ nvidia.drivers.version }}.run
+
+    - name: Download driver installer
+      ansible.builtin.get_url:
+        url: https://uk.download.nvidia.com/XFree86/{{ installer_arch }}/{{ nvidia.drivers.version }}/{{ installer_filename }}
+        dest: /tmp/{{ installer_filename }}
+        owner: root
+        group: root
+        mode: "0744" # U:RWX, G:R, O:R
+
+    - name: Run driver installer
+      ansible.builtin.command: /tmp/{{ installer_filename }} --ui=none {{ nvidia.drivers.installer_args | join(' ') }}
+      register: installer
+      failed_when: installer.rc != 0
