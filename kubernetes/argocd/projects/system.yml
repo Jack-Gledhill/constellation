@@ -12,6 +12,8 @@ spec:
     - https://stakater.github.io/stakater-charts
   destinations:
     - server: https://kubernetes.default.svc
+      namespace: external-secrets
+    - server: https://kubernetes.default.svc
       namespace: kube-system
     - server: https://kubernetes.default.svc
       namespace: nvidia-device-plugin
