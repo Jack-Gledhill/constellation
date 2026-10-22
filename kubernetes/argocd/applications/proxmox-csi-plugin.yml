@@ -1,0 +1,59 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: proxmox-csi-plugin
+  labels:
+    argocd.argoproj.io/sync-wave: "1"
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-change.github: Jack-Gledhill/constellation
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: system
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: csi-proxmox
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    managedNamespaceMetadata:
+      labels:
+        pod-security.kubernetes.io/enforce: privileged
+        pod-security.kubernetes.io/audit: baseline
+        pod-security.kubernetes.io/warn: baseline
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+  sources:
+    - repoURL: https://github.com/Jack-Gledhill/constellation.git
+      targetRevision: main
+      path: kubernetes/apps/proxmox-csi-plugin
+    - chart: proxmox-csi-plugin
+      repoURL: oci://ghcr.io/sergelogvinov/charts/proxmox-csi-plugin
+      targetRevision: 0.5.13
+      helm:
+        valuesObject:
+          config:
+            features:
+              provider: default
+            clusters:
+              - url: https://sagittarius.starsystem.dev:8006/api2/json
+                insecure: false
+                token_id_file: /etc/proxmox/tokens/sagittarius.id
+                token_secret_file: /etc/proxmox/tokens/sagittarius.secret
+                region: constellation
+          metrics:
+            enabled: true
+          extraVolumes:
+            - name: tokens
+              secret:
+                secretName: tokens
+                items:
+                  - key: sagittarius.id
+                    path: sagittarius.id
+                  - key: sagittarius.secret
+                    path: sagittarius.secret
+          extraVolumeMounts:
+            - name: tokens
+              mountPath: /etc/proxmox/tokens

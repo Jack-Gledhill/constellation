@@ -10,6 +10,9 @@ spec:
   sourceRepos:
     - https://github.com/Jack-Gledhill/constellation.git
     - https://stakater.github.io/stakater-charts
+    - https://charts.external-secrets.io
+    - https://nvidia.github.io/k8s-device-plugin
+    - oci://ghcr.io/sergelogvinov/charts/proxmox-csi-plugin
   destinations:
     - server: https://kubernetes.default.svc
       namespace: external-secrets
@@ -17,6 +20,8 @@ spec:
       namespace: kube-system
     - server: https://kubernetes.default.svc
       namespace: nvidia-device-plugin
+    - server: https://kubernetes.default.svc
+      namespace: csi-proxmox
   clusterResourceWhitelist:
     - group: "*"
       kind: "*"

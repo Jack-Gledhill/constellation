@@ -10,7 +10,9 @@ k3s:
     init_cluster: true
     role: server
     labels:
-      - starsystem.dev/hypervisor: pve1
+      - proxmox.sinextra.dev/instance-id=200
+      - topology.kubernetes.io/region=constellation
+      - topology.kubernetes.io/zone=sagittarius
     taints: [ ]
 
 nvidia:

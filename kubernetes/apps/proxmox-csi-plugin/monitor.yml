@@ -1,0 +1,13 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: proxmox-csi-plugin
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: proxmox-csi-plugin
+  podMetricsEndpoints:
+    - path: /metrics
+      port: metrics
+      honorLabels: true
+      interval: 30s

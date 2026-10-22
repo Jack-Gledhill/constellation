@@ -10,5 +10,6 @@ resources:
   - node-exporter.yml
   - nvidia-device-plugin.yml
   - prometheus-operator.yml
+  - proxmox-csi-plugin.yml
   - reloader.yml
   - traefik.yml

@@ -1,0 +1,17 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: tokens
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: infisical
+  target:
+    name: tokens
+  data:
+    - secretKey: sagittarius.id
+      remoteRef:
+        key: /proxmox/CSI_PLUGIN_TOKEN_ID
+    - secretKey: sagittarius.secret
+      remoteRef:
+        key: /proxmox/CSI_PLUGIN_TOKEN_SECRET

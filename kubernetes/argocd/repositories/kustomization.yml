@@ -7,4 +7,5 @@ resources:
   - metallb.yml
   - nvidia-device-plugin.yml
   - prometheus-community.yml
+  - proxmox-csi-plugin.yml
   - stakater.yml
