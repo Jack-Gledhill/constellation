@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - authelia.yml
   - cert-manager.yml
+  - external-secrets.yml
   - kube-state-metrics.yml
   - lldap.yml
   - metallb.yml
