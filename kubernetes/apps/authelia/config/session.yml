@@ -1,0 +1,19 @@
+kind: Secret
+apiVersion: v1
+metadata:
+  name: authelia-config-session
+stringData:
+  session.yml: |-
+    session:
+      cookies:
+        - domain: starsystem.dev
+          authelia_url: https://oidc.starsystem.dev
+        - domain: jackgledhill.com
+          authelia_url: https://oidc.jackgledhill.com
+        - domain: 8bc.xyz
+          authelia_url: https://oidc.8bc.xyz
+      redis:
+        host: redis.authelia
+        port: 6379
+        database_index: 0
+        max_retries: 5

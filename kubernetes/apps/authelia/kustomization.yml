@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+labels:
+  - pairs:
+      app.kubernetes.io/name: authelia
+      app.kubernetes.io/managed-by: argocd
+      app.kubernetes.io/version: 4.39.x
+resources:
+  - redis
+  - clients
+  - config
+  - deployment.yml
+  - pdb.yml
+  - service.yml
+  - netpol.yml
+  - monitor.yml
+  - ingress.yml

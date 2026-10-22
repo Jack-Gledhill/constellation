@@ -1,0 +1,17 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: authelia-client-homarr
+data:
+  homarr.yml: |-
+    - client_name: Homarr
+      client_id: Orl-CEklac18PX6gJlQva3kVJI1h3ixtFgioKXvVKB3g0bk9eY9uFKjtSyMwZt_60h3iCGTF
+      client_secret: $pbkdf2-sha512$310000$4KWoKtc/AjIk.PlIXJBM9g$fxsNhBHOFHpgXVynXpaeW4fHhdYKbaE9Bvrw/TCug18bcJssuTVMCASl1d/XeKoZ9trd0HLSqYvdvvkXqR7Ccw
+      authorization_policy: app
+      redirect_uris:
+        - https://home.starsystem.dev/api/auth/callback/oidc
+      scopes:
+        - openid
+        - profile
+        - groups
+        - email

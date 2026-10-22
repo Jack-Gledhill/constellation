@@ -1,0 +1,19 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: authelia-client-openwebui
+data:
+  open-webui.yml: |-
+    - client_name: Open WebUI
+      client_id: V81BbniANAlPN~bAatvEnxcx3rIIiTkZNssDhh5u9A5fngorp7__NnIHekizfJj63gyJkR1j
+      client_secret: $pbkdf2-sha512$310000$2egd0vooPxnF6Iqo.VbxNg$xdllQSQAXDK3runnNSdb/v9gEK3i21m/8sb4ckcKUQ7bfatsfeTqag/yaM8U64lGeEP5Fe1dvxuwXGzt6LvKSw
+      authorization_policy: app
+      require_pkce: true
+      pkce_challenge_method: S256
+      redirect_uris:
+        - https://ai.starsystem.dev/oauth/oidc/callback
+      scopes:
+        - openid
+        - profile
+        - groups
+        - email

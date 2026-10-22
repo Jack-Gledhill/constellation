@@ -1,0 +1,21 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: authelia-client-immich
+data:
+  immich.yml: |-
+    - client_name: Immich
+      client_id: OXbQOKxebCYpXmd7750G~Vj~Jpt23eH1sQYaHJbpG4ScTMVLvfoIAthMaK0ckOk~FHlMIOpk
+      client_secret: $pbkdf2-sha512$310000$zeg0tDo89wwG58QH2w/0kQ$oRsXImubGHmsg9P3Lh4oI0CjOpDrJT1BI2rDi/ihB7w357xGQebFt3MkRL3PBUcJOER./qKmAo9XJXY.yiSPhQ
+      authorization_policy: app
+      redirect_uris:
+        - https://photos.starsystem.dev/auth/login
+        - https://photos.starsystem.dev/user-settings
+        - app.immich:///oauth-callback
+      claims_policy: immich
+      scopes:
+        - openid
+        - profile
+        - email
+        - immich
+      token_endpoint_auth_method: client_secret_post

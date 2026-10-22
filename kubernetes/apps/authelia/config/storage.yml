@@ -1,0 +1,11 @@
+kind: Secret
+apiVersion: v1
+metadata:
+  name: authelia-config-storage
+stringData:
+  storage.yml: |-
+    storage:
+      postgres:
+        address: db.sagittarius.starsystem.dev:5432
+        database: authelia
+        username: authelia

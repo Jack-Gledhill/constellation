@@ -1,0 +1,29 @@
+kind: Secret
+apiVersion: v1
+metadata:
+  name: authelia-config-forward-auth
+stringData:
+  forward-auth.yml: |-
+    server:
+      endpoints:
+        authz:
+          forward-auth:
+            implementation: ForwardAuth
+    
+    # See here for configuration options: https://www.authelia.com/configuration/security/access-control/
+    # Note: Access controls here don't apply to OIDC clients, only to the Forward Auth middleware
+    access_control:
+      default_policy: deny
+      rules:
+        - domain: jellystat.starsystem.dev
+          policy: one_factor
+          subject:
+            - group:servarr_admin
+        - domain: cleanuparr.starsystem.dev
+          policy: one_factor
+          subject:
+            - group:servarr_admin
+        - domain: fileflows.starsystem.dev
+          policy: one_factor
+          subject:
+            - group:servarr_admin

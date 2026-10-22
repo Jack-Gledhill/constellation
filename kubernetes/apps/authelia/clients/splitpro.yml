@@ -1,0 +1,17 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: authelia-client-splitpro
+data:
+  splitpro.yml: |-
+    - client_name: SplitPro
+      client_id: kzOs7m_lK1N_ED~_yMBl31iYDywYHOKbhY-ZBfS3mVgz3CALSoLg0pBRU5mQom-TdudVMStz
+      client_secret: $pbkdf2-sha512$310000$w6v5b6BVPBbfla0fwEhhgA$oc.dnzO8flrMCCbTPqDkb8kswftwyQt2uQ9HHmFYtTmw3eEwV6SmQIRWsrAayTWoyGZDcbOIs8dTH4/1EG63sA
+      authorization_policy: splitpro
+      redirect_uris:
+        - https://bills.8bc.xyz/api/auth/callback/authelia
+      scopes:
+        - openid
+        - profile
+        - groups
+        - email

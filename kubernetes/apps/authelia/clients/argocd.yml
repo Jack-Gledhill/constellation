@@ -1,0 +1,47 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: authelia-client-argocd
+data:
+  argocd.yml: |-
+    - client_name: Argo CD
+      client_id: fhigXoyEojT.vT30Moa7Q6Xb0.cwb727Lz3hgwjNLywnrd5z.LxAsOgQzz1lDM~W-tGB_lXb
+      client_secret: $pbkdf2-sha512$310000$i3vlBuQ5jkkblgYuy0aLMw$2nk5J1jxFSvdJrhAPiGhdbp1.sEAJBS.CUPq0dsSXuX5hd/M2CK0kA6ALVowKl6O6lHDN//LV5OC9LWpeyBPiA
+      public: false
+      authorization_policy: argocd
+      require_pkce: false
+      pkce_challenge_method: ""
+      redirect_uris:
+        - https://argocd.starsystem.dev/auth/callback
+      scopes:
+        - openid
+        - groups
+        - email
+      response_types:
+        - code
+      grant_types:
+        - authorization_code
+      access_token_signed_response_alg: none
+      userinfo_signed_response_alg: none
+      token_endpoint_auth_method: client_secret_basic
+    - client_name: Argo CD (CLI)
+      client_id: F~4sYOV38X7Jj3o~96SGKQhc0goo9b-FjG~Eza_lyZbgFj9BP_Bsl8WP4Q.wNkKt0DKw2XVZ
+      public: true
+      authorization_policy: argocd
+      require_pkce: true
+      pkce_challenge_method: S256
+      redirect_uris:
+        - http://localhost:8085/auth/callback
+      scopes:
+        - openid
+        - offline_access
+        - groups
+        - email
+      response_types:
+        - code
+      grant_types:
+        - authorization_code
+        - refresh_token
+      access_token_signed_response_alg: none
+      userinfo_signed_response_alg: none
+      token_endpoint_auth_method: none

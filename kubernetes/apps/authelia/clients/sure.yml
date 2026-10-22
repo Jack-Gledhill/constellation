@@ -1,0 +1,19 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: authelia-client-sure
+data:
+  sure.yml: |-
+    - client_name: Sure
+      client_id: sr-4eGe~e5469vb5Cf7-Q2pLen_lGP4A56rC34brHvw7meNxi~VDO4os~NW9qfGAo1J734Yx
+      client_secret: $pbkdf2-sha512$310000$7Now6SG7878smloQxCOOlg$Ol85xfEnq2VlM2p4Q6jseUSViftXyC4uW2QEOIxKDE8lAse4F9Ur7EoBRsEmsZAN9FOxXfEKot17JnIEFXwuQg
+      authorization_policy: sure
+      require_pkce: true
+      pkce_challenge_method: S256
+      redirect_uris:
+        - https://sure.starsystem.dev/auth/openid_connect/callback
+      scopes:
+        - openid
+        - email
+        - profile
+        - groups

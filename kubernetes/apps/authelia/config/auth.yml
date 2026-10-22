@@ -1,0 +1,33 @@
+kind: Secret
+apiVersion: v1
+metadata:
+  name: authelia-config-auth
+stringData:
+  auth.yml: |-
+    default_2fa_method: webauthn
+    webauthn:
+      enable_passkey_login: true
+    
+    authentication_backend:
+      password_reset:
+        disable: true
+        custom_url: https://users.starsystem.dev/reset-password/step1
+      password_change:
+        disable: true
+      ldap:
+        address: ldap://lldap-ldap.lldap:389
+        user: uid=authelia,ou=people,dc=starsystem,dc=dev
+        base_dn: dc=starsystem,dc=dev
+        implementation: lldap
+        users_filter: (&(|({username_attribute}={input})({mail_attribute}={input}))(objectClass=person))
+        attributes:
+          extra:
+            immichquota:
+              multi_valued: false
+              value_type: integer
+
+    definitions:
+      user_attributes:
+        # Determines if user has admin permissions in Immich or not
+        immich_role:
+          expression: '"immich_admin" in groups ? "admin" : "user"'

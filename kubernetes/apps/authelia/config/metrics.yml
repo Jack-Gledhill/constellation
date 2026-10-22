@@ -1,0 +1,9 @@
+kind: Secret
+apiVersion: v1
+metadata:
+  name: authelia-config-metrics
+stringData:
+  metrics.yml: |-
+    telemetry:
+      metrics:
+        enabled: true

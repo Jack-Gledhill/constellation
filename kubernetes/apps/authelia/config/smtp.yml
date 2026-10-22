@@ -1,0 +1,14 @@
+kind: Secret
+apiVersion: v1
+metadata:
+  name: authelia-config-smtp
+stringData:
+  smtp.yml: |-
+    notifier:
+      disable_startup_check: true
+      smtp:
+        address: smtp://smtp.purelymail.com:587
+        username: noreply@starsystem.dev
+        sender: Authelia <noreply@starsystem.dev>
+        identifier: oidc.starsystem.dev
+        subject: "{title}"

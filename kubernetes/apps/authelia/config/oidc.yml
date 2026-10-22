@@ -1,0 +1,67 @@
+kind: Secret
+apiVersion: v1
+metadata:
+  name: authelia-config-oidc
+stringData:
+  oidc.yml: |-
+    identity_providers:
+      oidc:
+        jwks:
+          - key: |
+              {{- fileContent "/secrets/jwk_key" | nindent 10 }}
+        cors:
+          allowed_origins_from_client_redirect_uris: true
+          endpoints: 
+            - authorization
+            - pushed-authorization-request
+            - token
+            - revocation
+            - introspection
+            - userinfo
+        claims_policies:
+          immich:
+            custom_claims:
+              immich_role:
+                attribute: immich_role
+              immich_quota:
+                attribute: immichquota
+        scopes:
+          immich:
+            claims:
+              - immich_role
+              - immich_quota
+        authorization_policies:
+          argocd:
+            default_policy: deny
+            rules:
+              - policy: two_factor
+                subject: group:argocd
+          app:
+            default_policy: one_factor
+            rules:
+              - policy: deny
+                subject: group:services
+          infra:
+            default_policy: two_factor
+            rules:
+              - policy: deny
+                subject: group:services
+          servarr:
+            default_policy: deny
+            rules:
+              - policy: two_factor
+                subject: group:servarr_admin
+          splitpro:
+            default_policy: deny
+            rules:
+              - policy: one_factor
+                subject: group:splitpro
+          sure:
+            default_policy: deny
+            rules:
+              - policy: one_factor
+                subject: group:sure
+        clients:
+          {{ range (glob "/clients/*.yml") }}
+          {{-   fileContent . | nindent 5 }} 
+          {{ end }}
