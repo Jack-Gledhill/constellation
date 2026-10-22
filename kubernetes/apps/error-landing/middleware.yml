@@ -1,0 +1,21 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: errors
+spec:
+  errors:
+    status:
+      - "400"
+      - "403"
+      - "404"
+      - "418"
+      - "429"
+      - "500"
+      - "502"
+      - "503"
+      - "504"
+      - "511"
+    service:
+      name: error-landing
+      port: 8080
+    query: "/{status}.html"

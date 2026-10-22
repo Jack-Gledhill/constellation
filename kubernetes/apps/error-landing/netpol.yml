@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: error-landing
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: error-landing
+  ingress:
+    # Only allow Traefik to access
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: traefik-system
+      ports:
+        - port: 8080
