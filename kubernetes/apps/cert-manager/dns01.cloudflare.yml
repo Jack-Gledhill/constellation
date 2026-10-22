@@ -1,0 +1,16 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: dns01-cloudflare-credentials
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: infisical
+
+  target:
+    name: dns01-cloudflare-credentials
+
+  data:
+    - secretKey: apiKey
+      remoteRef:
+        key: /cert-manager/CLOUDFLARE_API_KEY
