@@ -7,6 +7,7 @@ resources:
   - lldap.yml
   - metallb.yml
   - node-exporter.yml
+  - nvidia-device-plugin.yml
   - prometheus-operator.yml
   - reloader.yml
   - traefik.yml

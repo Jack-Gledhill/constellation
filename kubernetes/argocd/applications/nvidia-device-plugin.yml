@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nvidia-device-plugin
+  labels:
+    argocd.argoproj.io/sync-wave: "0"
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-change.github: Jack-Gledhill/constellation
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: system
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: nvidia-device-plugin
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+  sources:
+    - chart: nvidia-device-plugin
+      repoURL: https://nvidia.github.io/k8s-device-plugin
+      targetRevision: 0.17.1
+      helm:
+        valuesObject:
+          gfd:
+            enabled: true
+          config:
+            map:
+              default: |-
+                version: v1
+                sharing:
+                  timeSlicing:
+                    renameByDefault: false
+                    failRequestsGreaterThanOne: true
+                    resources:
+                      - name: nvidia.com/gpu
+                        replicas: 10
