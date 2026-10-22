@@ -3,7 +3,7 @@ kind: Application
 metadata:
   name: cert-manager
   labels:
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-wave: "1"
   annotations:
     notifications.argoproj.io/subscribe.on-sync-change.github: Jack-Gledhill/constellation
   finalizers:
