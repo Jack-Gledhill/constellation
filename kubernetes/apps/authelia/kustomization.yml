@@ -9,6 +9,7 @@ resources:
   - redis
   - clients
   - config
+  - secrets.yml
   - deployment.yml
   - pdb.yml
   - service.yml

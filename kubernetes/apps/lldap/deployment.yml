@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lldap
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: lldap
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: lldap
+    spec:
+      priorityClassName: network-critical
+      containers:
+        - name: lldap
+          image: lldap/lldap:stable-alpine-rootless
+          ports:
+            - name: ldap
+              containerPort: 389
+            - name: ldaps
+              containerPort: 636
+            - name: http
+              containerPort: 17170
+          resources:
+            requests:
+              cpu: 10m
+              memory: 10Mi
+            limits:
+              memory: 100Mi
+          env:
+            - name: LLDAP_HTTP_PORT
+              value: "17170"
+            - name: LLDAP_LDAP_PORT
+              value: "389"
+            - name: LLDAP_LDAPS_OPTIONS__PORT
+              value: "636"
+            - name: LLDAP_DATABASE_URL_FILE
+              value: /config/secrets/database_url
+            - name: LLDAP_JWT_SECRET_FILE
+              value: /config/secrets/jwt_secret
+            - name: LLDAP_KEY_SEED_FILE
+              value: /config/secrets/key_seed
+            - name: LLDAP_LDAP_USER_PASS_FILE
+              value: /config/secrets/user_password
+            - name: LLDAP_SMTP_OPTIONS__PASSWORD_FILE
+              value: /config/secrets/smtp_password
+          volumeMounts:
+            - name: config
+              mountPath: /data/lldap_config.toml
+              subPath: config.toml
+            - name: keys
+              mountPath: /config/certs
+              readOnly: true
+            - name: secrets
+              mountPath: /config/secrets
+              readOnly: true
+      volumes:
+        - name: config
+          secret:
+            secretName: lldap-config
+            items:
+              - key: config.toml
+                path: config.toml
+        - name: keys
+          projected:
+            sources:
+              - secret:
+                  name: lldap-tls-ldaps
+        - name: secrets
+          projected:
+            sources:
+              - secret:
+                  name: lldap-secrets

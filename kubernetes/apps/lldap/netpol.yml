@@ -1,0 +1,38 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: lldap
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: lldap
+  policyTypes:
+    - Ingress
+  ingress:
+    # Allow all pods to use both secure and insecure LDAP
+    - from:
+        - namespaceSelector: {}
+        - podSelector: {}
+      ports:
+        - port: 389
+        - port: 636
+    # Allow secure LDAP from homelab network
+    - from:
+        - ipBlock:
+            cidr: 10.0.0.0/8
+            except:
+              - 10.0.0.0/16 # Management VLAN
+              - 10.3.0.2/32 # Sagittarius KVM
+      ports:
+        - port: 636
+    # Allow secure LDAP from Scorpio and Genesis
+    - from:
+        - ipBlock:
+            cidr: 176.126.78.213/32 # Scorpio
+        - ipBlock:
+            cidr: 157.180.68.231/32 # Genesis
+      ports:
+        - port: 636
+    # Allow HTTP access from anywhere
+    - ports:
+        - port: 17170

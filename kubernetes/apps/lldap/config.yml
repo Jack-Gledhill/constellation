@@ -1,0 +1,22 @@
+kind: Secret
+apiVersion: v1
+metadata:
+  name: lldap-config
+stringData:
+  config.toml: |-
+    http_url = "https://users.starsystem.dev"
+    ldap_base_dn = "dc=starsystem,dc=dev"
+      
+    [smtp_options]
+    enable_password_reset = true
+    smtp_encryption = "TLS"
+    server = "smtp.purelymail.com"
+    port = 465
+    user = "noreply@starsystem.dev"
+    from = "LLDAP <noreply@starsystem.dev>"
+    reply_to = "Jack Gledhill <me@jackgledhill.com>"
+      
+    [ldaps_options]
+    enabled = true
+    cert_file = "/config/certs/tls.crt"
+    key_file = "/config/certs/tls.key"
