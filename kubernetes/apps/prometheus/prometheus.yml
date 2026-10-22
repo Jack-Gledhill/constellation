@@ -1,0 +1,24 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  name: prometheus
+spec:
+  version: v3
+  serviceAccountName: prometheus
+  priorityClassName: network-critical
+  externalUrl: https://prometheus.starsystem.dev
+  serviceMonitorSelector: {}
+  serviceMonitorNamespaceSelector: {}
+  podMonitorSelector: {}
+  podMonitorNamespaceSelector: {}
+  resources:
+    requests:
+      cpu: 10m
+      memory: 100Mi
+    limits:
+      memory: 400Mi
+  alerting:
+    alertmanagers:
+      - name: alertmanager
+        namespace: prometheus-system
+        port: web

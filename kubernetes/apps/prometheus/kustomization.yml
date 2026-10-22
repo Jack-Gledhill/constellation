@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+labels:
+  - pairs:
+      app.kubernetes.io/name: prometheus
+      app.kubernetes.io/managed-by: argocd
+      app.kubernetes.io/version: 3.x.x
+resources:
+  - rbac.yml
+  - prometheus.yml
+  - service.yml
+  - ingress.yml
+  - monitor.yml
