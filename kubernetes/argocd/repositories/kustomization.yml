@@ -6,6 +6,7 @@ resources:
   - jetstack.yml
   - metallb.yml
   - nvidia-device-plugin.yml
+  - nvidia-gpu-exporter.yml
   - prometheus-community.yml
   - proxmox-csi-plugin.yml
   - stakater.yml

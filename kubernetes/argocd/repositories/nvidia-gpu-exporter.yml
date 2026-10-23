@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: nvidia-gpu-exporter
+  namespace: argocd
+  labels:
+    argocd.argoproj.io/secret-type: repository
+stringData:
+  type: helm
+  enableOCI: "true"
+  name: nvidia-gpu-exporter
+  url: oci://ghcr.io/utkuozdemir/charts/nvidia-gpu-exporter

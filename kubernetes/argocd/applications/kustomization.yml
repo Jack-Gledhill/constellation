@@ -10,6 +10,7 @@ resources:
   - metallb.yml
   - node-exporter.yml
   - nvidia-device-plugin.yml
+  - nvidia-gpu-exporter.yml
   - prometheus-operator.yml
   - proxmox-csi-plugin.yml
   - reloader.yml

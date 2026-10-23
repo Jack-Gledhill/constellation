@@ -10,6 +10,7 @@ spec:
   sourceRepos:
     - https://github.com/Jack-Gledhill/constellation.git
     - https://prometheus-community.github.io/helm-charts
+    - oci://ghcr.io/utkuozdemir/charts/nvidia-gpu-exporter
   destinations:
     - server: https://kubernetes.default.svc
       namespace: prometheus-system

@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nvidia-gpu-exporter
+  labels:
+    argocd.argoproj.io/sync-wave: "1"
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-change.github: Jack-Gledhill/constellation
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: metrics
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
+  sources:
+    - chart: nvidia-gpu-exporter
+      repoURL: oci://ghcr.io/utkuozdemir/charts/nvidia-gpu-exporter
+      targetRevision: 2.15.1
+      helm:
+        valuesObject:
+          priorityClassName: system-node-critical
+          runtimeClassName: nvidia
+          hostPID: true
+          computeApps:
+            enabled: true
+          image:
+            tag: 1.15.1-nvml
+          nodeSelector:
+            nvidia.com/gpu.present: "true"
+          tolerations:
+            - key: nvidia.com/gpu
+              operator: Exists
+              effect: NoSchedule
+          serviceMonitor:
+            enabled: true
+          grafanaDashboard:
+            enabled: true
