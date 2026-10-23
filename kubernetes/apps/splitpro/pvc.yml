@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: splitpro-uploads
+spec:
+  storageClassName: sagittarius
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    limits:
+      capacity: 10Gi

@@ -13,4 +13,5 @@ resources:
   - prometheus-operator.yml
   - proxmox-csi-plugin.yml
   - reloader.yml
+  - splitpro.yml
   - traefik.yml
