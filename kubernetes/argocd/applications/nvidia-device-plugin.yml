@@ -21,6 +21,9 @@ spec:
       - CreateNamespace=true
       - ServerSideApply=true
   sources:
+    - repoURL: https://github.com/Jack-Gledhill/constellation.git
+      targetRevision: main
+      path: kubernetes/apps/nvidia-device-plugin
     - chart: nvidia-device-plugin
       repoURL: https://nvidia.github.io/k8s-device-plugin
       targetRevision: 0.17.1
