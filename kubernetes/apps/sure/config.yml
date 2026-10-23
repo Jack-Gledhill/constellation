@@ -1,0 +1,28 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: sure-config
+data:
+  REDIS_URL: redis://redis.sure:6379/0
+  SELF_HOSTED: "true"
+  RAILS_ASSUME_SSL: "true"
+  RAILS_FORCE_SSL: "false"
+  APP_DOMAIN: sure.starsystem.dev
+
+  ONBOARDING_STATE: closed
+  AUTH_LOCAL_ADMIN_OVERRIDE_ENABLED: "true"
+  AUTH_LOCAL_LOGIN_ENABLED: "false"
+  OIDC_ISSUER: https://oidc.starsystem.dev
+  OIDC_CLIENT_ID: sr-4eGe~e5469vb5Cf7-Q2pLen_lGP4A56rC34brHvw7meNxi~VDO4os~NW9qfGAo1J734Yx
+  OIDC_REDIRECT_URI: https://sure.starsystem.dev/auth/openid_connect/callback
+  OIDC_BUTTON_LABEL: Sign in with Authelia
+
+  DB_HOST: db.sagittarius.starsystem.dev
+  DB_PORT: "5432"
+  POSTGRES_DB: sure
+  POSTGRES_USER: sure
+
+  SMTP_ADDRESS: smtp.purelymail.com
+  SMTP_PORT: "587"
+  SMTP_USERNAME: noreply@starsystem.dev
+  EMAIL_SENDER: Sure <noreply@starsystem.dev>

@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sure-worker
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: sure
+      app.kubernetes.io/component: worker
+      app.kubernetes.io/part-of: sure
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: sure
+        app.kubernetes.io/component: worker
+        app.kubernetes.io/part-of: sure
+    spec:
+      containers:
+        - name: worker
+          image: ghcr.io/we-promise/sure:0.7.6
+          command:
+            - bundle
+            - exec
+            - sidekiq
+          envFrom:
+            - configMapRef:
+                name: sure-config
+            - secretRef:
+                name: sure-secrets
+          resources:
+            requests:
+              cpu: 100m
+              memory: 500Mi
+            limits:
+              memory: 1Gi
+          volumeMounts:
+            - name: data
+              mountPath: /rails/storage
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: sure-data

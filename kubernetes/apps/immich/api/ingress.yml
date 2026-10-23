@@ -8,7 +8,7 @@ spec:
   tls:
     - hosts:
         - photos.starsystem.dev
-      secretName: server-tls
+      secretName: server-api-tls
   rules:
     - host: photos.starsystem.dev
       http:

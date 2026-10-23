@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+labels:
+  - pairs:
+      app.kubernetes.io/name: sure
+      app.kubernetes.io/managed-by: argocd
+      app.kubernetes.io/version: 0.7.6
+resources:
+  - pvc.yml
+  - config.yml
+  - secrets.yml
+  - redis
+  - api
+  - worker

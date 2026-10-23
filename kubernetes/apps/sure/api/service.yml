@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sure-api
+spec:
+  selector:
+    app.kubernetes.io/name: sure
+    app.kubernetes.io/component: api
+    app.kubernetes.io/part-of: sure
+  ports:
+    - name: http
+      port: 3000
+      targetPort: 3000
