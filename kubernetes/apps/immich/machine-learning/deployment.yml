@@ -18,6 +18,7 @@ spec:
         app.kubernetes.io/name: machine-learning
         app.kubernetes.io/part-of: immich
     spec:
+      runtimeClassName: nvidia
       containers:
         - name: machine-learning
           image: ghcr.io/immich-app/immich-machine-learning:v2.7.5-cuda
