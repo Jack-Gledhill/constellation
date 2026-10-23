@@ -29,6 +29,7 @@ spec:
       targetRevision: 0.17.1
       helm:
         valuesObject:
+          runtimeClassName: nvidia
           gfd:
             enabled: true
           config:
