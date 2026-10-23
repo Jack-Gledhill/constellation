@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-api
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: server
+      app.kubernetes.io/component: api
+      app.kubernetes.io/part-of: immich
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: server
+        app.kubernetes.io/component: api
+        app.kubernetes.io/part-of: immich
+    spec:
+      containers:
+        - name: api
+          image: ghcr.io/immich-app/immich-server:v2.7.5
+          ports:
+            - name: http
+              containerPort: 2283
+            - name: metrics
+              containerPort: 8081
+          env:
+            - name: IMMICH_WORKERS_INCLUDE
+              value: api
+          envFrom:
+            - configMapRef:
+                name: immich-config
+            - secretRef:
+                name: immich-secrets
+          resources:
+            requests:
+              cpu: 10m
+              memory: 50Mi
+            limits:
+              memory: 100Mi
+          volumeMounts:
+            - name: data
+              mountPath: /data
+          livenessProbe:
+            httpGet:
+              port: http
+              path: /api/server/ping
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            timeoutSeconds: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              port: http
+              path: /api/server/ping
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            timeoutSeconds: 1
+            failureThreshold: 3
+          startupProbe:
+            httpGet:
+              port: http
+              path: /api/server/ping
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            timeoutSeconds: 1
+            failureThreshold: 30
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: immich-data

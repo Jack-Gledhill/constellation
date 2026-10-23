@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: server-jobs
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: server
+      app.kubernetes.io/component: jobs
+      app.kubernetes.io/part-of: immich
+  endpoints:
+    - path: /metrics
+      targetPort: 8081
+      honorLabels: true
+      interval: 30s

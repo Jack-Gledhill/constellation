@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: machine-learning
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: machine-learning
+      app.kubernetes.io/part-of: immich
+  policyTypes:
+    - Ingress
+  ingress:
+    # Only allow access from server pods in immich namespace
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: immich
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: server
+      ports:
+        - port: 3003

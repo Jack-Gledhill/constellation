@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: apps
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: End-user applications exposed to the internet.
+  sourceRepos:
+    - https://github.com/Jack-Gledhill/constellation.git
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: immich
+  namespaceResourceWhitelist:
+    - group: "*"
+      kind: "*"

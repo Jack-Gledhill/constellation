@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+labels:
+  - pairs:
+      app.kubernetes.io/name: valkey
+      app.kubernetes.io/part-of: immich
+    includeSelectors: true
+    includeTemplates: true
+  - pairs:
+      app.kubernetes.io/managed-by: argocd
+      app.kubernetes.io/version: 9.1.2
+resources:
+  - deployment.yml
+  - service.yml
+  - netpol.yml

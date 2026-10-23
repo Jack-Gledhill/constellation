@@ -1,0 +1,13 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: immich-config
+data:
+  IMMICH_MACHINE_LEARNING_URL: http://machine-learning.immich:3003
+  IMMICH_TELEMETRY_INCLUDE: all
+  REDIS_HOSTNAME: valkey.immich
+  REDIS_PORT: "6379"
+  REDIS_DBINDEX: "0"
+  DB_HOSTNAME: db.sagittarius.starsystem.dev
+  DB_PORT: "5432"
+  TZ: Europe/London

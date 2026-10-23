@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-jobs
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: server
+      app.kubernetes.io/component: jobs
+      app.kubernetes.io/part-of: immich
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: server
+        app.kubernetes.io/component: jobs
+        app.kubernetes.io/part-of: immich
+    spec:
+      containers:
+        - name: jobs
+          image: ghcr.io/immich-app/immich-server:v2.7.5
+          ports:
+            - name: metrics
+              containerPort: 8081
+          env:
+            - name: IMMICH_WORKERS_EXCLUDE
+              value: api
+          envFrom:
+            - configMapRef:
+                name: immich-config
+            - secretRef:
+                name: immich-secrets
+          resources:
+            requests:
+              cpu: 1000m
+              memory: 2Gi
+            limits:
+              memory: 4Gi
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: immich-data

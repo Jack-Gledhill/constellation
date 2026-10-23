@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+labels:
+  - pairs:
+      app.kubernetes.io/name: immich
+      app.kubernetes.io/managed-by: argocd
+      app.kubernetes.io/version: 2.7.5
+resources:
+  - pvc.yml
+  - config.yml
+  - secrets.yml
+  - valkey
+  - api
+  - jobs
+  - machine-learning

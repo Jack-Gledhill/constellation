@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: valkey
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: valkey
+      app.kubernetes.io/part-of: immich
+  policyTypes:
+    - Ingress
+  ingress:
+    # Only allow access from Immich pods in immich namespace
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: immich
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/part-of: immich
+      ports:
+        - port: 6379
