@@ -1,0 +1,19 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: authelia-client-paperless-ngx
+data:
+  paperless-ngx.yml: |-
+    - client_name: Paperless-ngx
+      client_id: HR8g4YirEwgdGZibGwR3fhxvhY13yh8oZaRzTu7H_8XAIbsX98kId.hl4FaOJrCevVHa2YxY
+      client_secret: $pbkdf2-sha512$310000$jYcvssZmeBbbKeDoeIhgyg$3MYjxVQltZCS2ys5bQykNnFB8WTavnaETyy6GDB8gu89wL67AXlKGiNeN1b8jFpe.p90/8VjIpn7D0xOSqBhxw
+      authorization_policy: app
+      require_pkce: true
+      pkce_challenge_method: S256
+      redirect_uris:
+        - https://paperless.starsystem.dev/accounts/oidc/authelia/login/callback/
+      scopes:
+        - openid
+        - profile
+        - groups
+        - email

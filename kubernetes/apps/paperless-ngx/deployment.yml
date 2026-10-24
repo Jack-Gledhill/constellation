@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paperless-ngx
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: paperless-ngx
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: paperless-ngx
+    spec:
+      containers:
+        - name: paperless-ngx
+          image: ghcr.io/paperless-ngx/paperless-ngx:3.3.4
+          envFrom:
+            - configMapRef:
+                name: paperless-ngx-config
+            - secretRef:
+                name: paperless-ngx-secrets
+          ports:
+            - name: metrics
+              containerPort: 5555
+            - name: http
+              containerPort: 8000
+          resources:
+            requests:
+              cpu: 100m
+              memory: 500Mi
+            limits:
+              memory: 2Gi
+          volumeMounts:
+            - name: data
+              mountPath: /usr/src/paperless/data
+            - name: logs
+              mountPath: /usr/src/paperless/log
+            - name: scratch
+              mountPath: /usr/src/paperless/scratch
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: paperless-ngx-data
+        - name: logs
+          emptyDir:
+            sizeLimit: 10Mi
+        - name: scratch
+          emptyDir:
+            sizeLimit: 1Gi

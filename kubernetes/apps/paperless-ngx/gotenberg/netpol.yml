@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: gotenberg
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: gotenberg
+      app.kubernetes.io/part-of: paperless-ngx
+  policyTypes:
+    - Ingress
+  ingress:
+    # Only allow access from paperless-ngx pods in paperless-ngx namespace
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: paperless-ngx
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: paperless-ngx
+      ports:
+        - port: 3000

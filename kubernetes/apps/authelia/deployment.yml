@@ -73,6 +73,8 @@ spec:
               - configMap:
                   name: authelia-client-openwebui
               - configMap:
+                  name: authelia-client-paperless-ngx
+              - configMap:
                   name: authelia-client-splitpro
               - configMap:
                   name: authelia-client-sure

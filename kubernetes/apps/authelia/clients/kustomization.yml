@@ -5,5 +5,6 @@ resources:
   - homarr.yml
   - immich.yml
   - open-webui.yml
+  - paperless-ngx.yml
   - splitpro.yml
   - sure.yml

@@ -1,0 +1,44 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: paperless-ngx-config
+data:
+  PAPERLESS_URL: https://paperless.starsystem.dev
+  PAPERLESS_APP_LOGO: # TODO
+  PAPERLESS_APPS: allauth.socialaccount.providers.openid_connect
+  PAPERLESS_OCR_LANGUAGE: eng
+  PAPERLESS_TIME_ZONE: Europe/London
+  PAPERLESS_ENABLE_FLOWER: "true" # Enables metrics monitoring
+
+  PAPERLESS_SCRATCH_DIR: /usr/src/paperless/scratch
+  PAPERLESS_LOGGING_DIR: /usr/src/paperless/log
+  PAPERLESS_MEDIA_ROOT: /usr/src/paperless/data # Merges data and media volumes
+  PAPERLESS_CONSUMER_DISABLE: "true"
+
+  PAPERLESS_REDIS: redis://redis.paperless-ngx:6379
+  PAPERLESS_DBENGINE: postgresql
+  PAPERLESS_DBHOST: db.sagittarius.starsystem.dev
+  PAPERLESS_DBPORT: "5432"
+  PAPERLESS_DBNAME: paperless
+  PAPERLESS_DBUSER: paperless
+  PAPERLESS_DB_READ_CACHE_ENABLED: "true"
+
+  PAPERLESS_TIKA_ENABLED: 1
+  PAPERLESS_TIKA_ENDPOINT: http://tika.paperless-ngx:9998
+  PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://gotenberg.paperless-ngx:3000
+
+  PAPERLESS_WEBSERVER_WORKERS: 2
+  PAPERLESS_TASK_WORKERS: 4
+  PAPERLESS_THREADS_PER_WORKER: 2
+  PAPERLESS_ENABLE_COMPRESSION: "false" # Traefik will take care of this
+
+  PAPERLESS_ACCOUNT_ALLOW_SIGNUPS: "false"
+  PAPERLESS_DISABLE_REGULAR_LOGIN: "true"
+  PAPERLESS_SOCIAL_AUTO_SIGNUP: "true"
+  PAPERLESS_SOCIAL_ACCOUNT_SYNC_SUPERUSER_GROUP: paperless_admin
+
+  PAPERLESS_EMAIL_HOST: smtp.purelymail.com
+  PAPERLESS_EMAIL_PORT: "587"
+  PAPERLESS_EMAIL_HOST_USER: noreply@starsystem.dev
+  PAPERLESS_EMAIL_FROM: Paperless-ngx <noreply@starsystem.dev>
+  PAPERLESS_EMAIL_USE_TLS: "true"

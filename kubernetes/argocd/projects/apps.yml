@@ -12,6 +12,12 @@ spec:
   destinations:
     - server: https://kubernetes.default.svc
       namespace: immich
+    - server: https://kubernetes.default.svc
+      namespace: paperless-ngx
+    - server: https://kubernetes.default.svc
+      namespace: splitpro
+    - server: https://kubernetes.default.svc
+      namespace: sure
   namespaceResourceWhitelist:
     - group: "*"
       kind: "*"
