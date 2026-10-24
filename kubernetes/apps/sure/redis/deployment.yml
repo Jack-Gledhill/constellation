@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: redis
-          image: redis:8.8.0-alpine
+          image: redis:8.10.2-alpine
           args:
             - --save 60
             - --loglevel error

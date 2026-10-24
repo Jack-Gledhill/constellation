@@ -17,7 +17,7 @@ spec:
       priorityClassName: network-critical
       containers:
         - name: redis
-          image: redis:8-alpine
+          image: redis:8.10.2-alpine
           ports:
             - name: redis
               containerPort: 6379

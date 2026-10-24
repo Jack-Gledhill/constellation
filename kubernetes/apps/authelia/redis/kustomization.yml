@@ -5,7 +5,7 @@ labels:
       app.kubernetes.io/name: redis
       app.kubernetes.io/part-of: authelia
       app.kubernetes.io/managed-by: argocd
-      app.kubernetes.io/version: 8.x.x
+      app.kubernetes.io/version: 8.10.2
 resources:
   - deployment.yml
   - service.yml
