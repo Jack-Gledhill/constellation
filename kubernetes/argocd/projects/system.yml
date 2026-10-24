@@ -13,6 +13,7 @@ spec:
     - https://charts.external-secrets.io
     - https://nvidia.github.io/k8s-device-plugin
     - oci://ghcr.io/sergelogvinov/charts/proxmox-csi-plugin
+    - https://ot-container-kit.github.io/helm-charts/
   destinations:
     - server: https://kubernetes.default.svc
       namespace: external-secrets
@@ -22,6 +23,8 @@ spec:
       namespace: nvidia-device-plugin
     - server: https://kubernetes.default.svc
       namespace: csi-proxmox
+    - server: https://kubernetes.default.svc
+      namespace: redis-operator
   clusterResourceWhitelist:
     - group: "*"
       kind: "*"

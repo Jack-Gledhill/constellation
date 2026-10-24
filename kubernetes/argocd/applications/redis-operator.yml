@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: redis-operator
+  labels:
+    argocd.argoproj.io/sync-wave: "0"
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-change.github: Jack-Gledhill/constellation
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: system
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: redis-operator
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    managedNamespaceMetadata:
+      labels:
+        pod-security.kubernetes.io/enforce: baseline
+        pod-security.kubernetes.io/audit: restricted
+        pod-security.kubernetes.io/warn: restricted
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+  sources:
+    - chart: redis-operator
+      repoURL: https://ot-container-kit.github.io/helm-charts/
+      targetRevision: 0.27.0
+      helm:
+        valuesObject:
+          priorityClassName: system-cluster-critical
+          certmanager:
+            enabled: true
+          issuer:
+            create: false
+            kind: ClusterIssuer
+            name: letsencrypt
+          redisOperator:
+            webhook: true
+          featureGates:
+            GenerateConfigInInitContainer: true

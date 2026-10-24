@@ -13,6 +13,7 @@ resources:
   - nvidia-gpu-exporter.yml
   - prometheus-operator.yml
   - proxmox-csi-plugin.yml
+  - redis-operator.yml
   - reloader.yml
   - splitpro.yml
   - sure.yml

@@ -6,4 +6,35 @@ resources:
   - external-secrets.yml
   - metallb.yml
   - prometheus-operator.yml
+  - redis-operator.yml
   - traefik.yml
+
+patches:
+  - target:
+      kind: CustomResourceDefinition
+      name: redis.redis.redis.opstreelabs.in
+    patch: |-
+      metadata:
+        annotations:
+          cert-manager.io/inject-ca-from: redis-operator/serving-cert
+  - target:
+      kind: CustomResourceDefinition
+      name: redisclusters.redis.redis.opstreelabs.in
+    patch: |-
+      metadata:
+        annotations:
+          cert-manager.io/inject-ca-from: redis-operator/serving-cert
+  - target:
+      kind: CustomResourceDefinition
+      name: redisreplications.redis.redis.opstreelabs.in
+    patch: |-
+      metadata:
+        annotations:
+          cert-manager.io/inject-ca-from: redis-operator/serving-cert
+  - target:
+      kind: CustomResourceDefinition
+      name: redissentinels.redis.redis.opstreelabs.in
+    patch: |-
+      metadata:
+        annotations:
+          cert-manager.io/inject-ca-from: redis-operator/serving-cert
