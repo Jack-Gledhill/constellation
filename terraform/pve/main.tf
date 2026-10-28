@@ -11,18 +11,18 @@ terraform {
 
 locals {
   domain = "starsystem.dev"
-  nodes = ["sagittarius"]
+  nodes  = ["sagittarius"]
 }
 
 provider "proxmox" {
-  endpoint  = local.nodes[0] + "." + local.domain
+  endpoint  = local.nodes[0] + "." + local.domain + ":8006"
   api_token = var.pve_api_token
 }
 
 module "cluster" {
   source = "modules/cluster"
 
-  nodes   = local.nodes
+  nodes      = local.nodes
   email_from = "noreply@" + local.domain
   dns_domain = local.domain
 }
@@ -30,8 +30,8 @@ module "cluster" {
 module "acme" {
   source = "modules/acme"
 
-  email = "admin@" + local.domain
-  certificates = [for n in local.nodes: { node = n, domain = n + "." + local.domain }]
+  email                 = "admin@" + local.domain
+  certificates          = [for n in local.nodes : { node = n, domain = n + "." + local.domain }]
   cloudflare_account_id = var.cloudflare_account_id
-  cloudflare_token = var.cloudflare_token
+  cloudflare_token      = var.cloudflare_token
 }
