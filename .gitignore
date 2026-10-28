@@ -6,3 +6,6 @@ inventory.yml
 .venv/
 .cache/
 .DS_Store
+.terraform/
+*.tfvars
+!*.example.tfvars
