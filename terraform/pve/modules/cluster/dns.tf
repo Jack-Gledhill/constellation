@@ -1,6 +1,7 @@
 resource "proxmox_virtual_environment_dns" "dns" {
-  domain    = "starsystem.dev"
-  node_name = var.node
+  for_each = var.nodes
+  node_name = each
+  domain    = var.dns_domain
 
   servers = [
     "1.1.1.1",

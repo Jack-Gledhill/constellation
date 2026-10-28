@@ -9,32 +9,29 @@ terraform {
   }
 }
 
+locals {
+  domain = "starsystem.dev"
+  nodes = ["sagittarius"]
+}
+
 provider "proxmox" {
-  endpoint  = var.pve_endpoint
+  endpoint  = local.nodes[0] + "." + local.domain
   api_token = var.pve_api_token
-  insecure  = var.pve_insecure
 }
 
-resource "proxmox_cluster_options" "options" {
-  language   = "en"
-  keyboard   = "en-gb"
-  email_from = "noreply@starsystem.dev"
+module "cluster" {
+  source = "modules/cluster"
+
+  nodes   = local.nodes
+  email_from = "noreply@" + local.domain
+  dns_domain = local.domain
 }
 
-module "sagittarius" {
-  source = "modules/node"
-  node   = "sagittarius"
+module "acme" {
+  source = "modules/acme"
 
-  acme_account = proxmox_acme_account.letsencrypt
-  acme_plugin  = proxmox_acme_dns_plugin.cloudflare
-}
-
-module "postgres" {
-  source = "modules/postgres"
-}
-
-module "kubernetes" {
-  source   = "modules/kubernetes"
-  username = var.kubernetes_username
-  password = var.kubernetes_password
+  email = "admin@" + local.domain
+  certificates = [for n in local.nodes: { node = n, domain = n + "." + local.domain }]
+  cloudflare_account_id = var.cloudflare_account_id
+  cloudflare_token = var.cloudflare_token
 }
