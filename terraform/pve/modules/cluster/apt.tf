@@ -9,7 +9,7 @@ locals {
   ])
 }
 
-data "proxmox_apt_standard_repository" "repositories" {
+resource "proxmox_apt_standard_repository" "repositories" {
   for_each = local.std_repositories
   node   = each.value.node
   handle = each.value.handle
