@@ -29,5 +29,8 @@ variable "apt_repositories" {
     ceph-squid-no-subscription = false
     ceph-squid-enterprise = false
     ceph-squid-test = false
+    ceph-tentacle-no-subscription = false
+    ceph-tentacle-enterprise = false
+    ceph-tentacle-test = false
   }
 }
