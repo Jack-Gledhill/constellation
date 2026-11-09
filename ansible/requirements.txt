@@ -22,7 +22,7 @@ platformdirs==4.14.5
 pycparser==3.12
 PyYAML==6.0.2
 referencing==0.37.0
-resolvelib==1.0.1
+resolvelib==1.2.1
 rpds-py==0.22.3
 ruamel.yaml==0.19.1
 ruamel.yaml.clib==0.2.12
