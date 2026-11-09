@@ -10,21 +10,15 @@ updates:
     directory: "/ansible" # Location of package manifests
     schedule:
       interval: "weekly"
-    assignees:
-      - "Jack-Gledhill"
 
   # --- MkDocs
   - package-ecosystem: "pip" # See documentation for possible values
     directory: "/docs" # Location of package manifests
     schedule:
       interval: "weekly"
-    assignees:
-      - "Jack-Gledhill"
 
   # --- GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
-    assignees:
-      - "Jack-Gledhill"
