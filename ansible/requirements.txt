@@ -17,7 +17,7 @@ MarkupSafe==3.0.4
 mypy-extensions==1.1.0
 packaging==26.3
 passlib==1.7.4
-pathspec==0.12.1
+pathspec==1.1.1
 platformdirs==4.14.5
 pycparser==3.12
 PyYAML==6.0.2
