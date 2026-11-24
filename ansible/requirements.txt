@@ -28,6 +28,6 @@ ruamel.yaml==0.19.1
 ruamel.yaml.clib==0.2.12
 subprocess-tee==0.4.2
 typing_extensions==4.12.2
-wcmatch==10.0
+wcmatch==11.2
 yamllint==1.38.0
 zipp==4.1.0
